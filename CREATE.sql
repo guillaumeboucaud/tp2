@@ -79,7 +79,7 @@ CREATE TABLE Etudiant (
 								CONSTRAINT ck_Etudiant_nom			CHECK (LENGTH(nom) >= 2),
 	prenom 						VARCHAR2(30) 
 								CONSTRAINT nn_Etudiant_prenom 		NOT NULL
-								CONSTRAINT ck_Etudiant_prenom		CHECK (LENGTH(nom) >= 2),
+								CONSTRAINT ck_Etudiant_prenom		CHECK (LENGTH(prenom) >= 2),
 	telephone 					CHAR(10) 
 								CONSTRAINT nn_Etudiant_telephone 	NOT NULL
 								CONSTRAINT ck_Etudiant_telephone	CHECK (REGEXP_LIKE(telephone, '[0-9]{10}')),
@@ -113,7 +113,7 @@ CREATE TABLE EmployeDepartement (
 								CONSTRAINT ck_Employe_nom			CHECK (LENGTH(nom) >= 2),
 	prenom 						VARCHAR2(30) 
 								CONSTRAINT nn_Employe_prenom 		NOT NULL
-								CONSTRAINT ck_Employe_prenom		CHECK (LENGTH(nom) >= 2),
+								CONSTRAINT ck_Employe_prenom		CHECK (LENGTH(prenom) >= 2),
 	telephone 					CHAR(10) 
 								CONSTRAINT nn_Employe_telephone 	NOT NULL
 								CONSTRAINT ck_Employe_telephone		CHECK (REGEXP_LIKE(telephone, '[0-9]{10}')),
@@ -143,7 +143,7 @@ CREATE TABLE Enseignant (
 								CONSTRAINT ck_Enseignant_nom			CHECK (LENGTH(nom) >= 2),
 	prenom 						VARCHAR2(30) 
 								CONSTRAINT nn_Enseignant_prenom 		NOT NULL
-								CONSTRAINT ck_Enseignant_prenom			CHECK (LENGTH(nom) >= 2),
+								CONSTRAINT ck_Enseignant_prenom			CHECK (LENGTH(prenom) >= 2),
 	telephone 					CHAR(10) 
 								CONSTRAINT nn_Enseignant_telephone 		NOT NULL
 								CONSTRAINT ck_Enseignant_telephone		CHECK (REGEXP_LIKE(telephone, '[0-9]{10}')),
