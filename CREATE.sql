@@ -45,7 +45,7 @@ CREATE TABLE Programme (
 	codeNumerique 				CHAR(4) 
 								CONSTRAINT nn_Programme_codeNum				NOT NULL
 								CONSTRAINT un_Programme_codeNum				UNIQUE,
-	titre 						VARCHAR2(45) 
+	titreProgramme 				VARCHAR2(45) 
 								CONSTRAINT nn_Programme_titre				NOT NULL,
 	typeProgramme				VARCHAR2(45) 
 								CONSTRAINT nn_Programme_type				NOT NULL,
@@ -165,8 +165,8 @@ CREATE TABLE SessionCours (
 								CONSTRAINT nn_SessionCours_dateFin			NOT NULL,
 	dateLimiteRemiseNotes 		TIMESTAMP
 								CONSTRAINT nn_SessionCours_dateLimite		NOT NULL,
-								CONSTRAINT ck_SessionCours_dateFin			CHECK (dateFin > dateDebut)
-								CONSTRAINT ck_SessionCours_dateLimite		CHECK (dateLimiteRemiseNotes > dateDebut)
+	CONSTRAINT ck_SessionCours_dateFin			CHECK (dateFin > dateDebut),
+	CONSTRAINT ck_SessionCours_dateLimite		CHECK (dateLimiteRemiseNotes > dateDebut)
 )
 /
 
@@ -180,10 +180,10 @@ CREATE TABLE Cours(
 	sigleCours	 				CHAR(7) 
 								CONSTRAINT nn_Cours_sigle			NOT NULL
 								CONSTRAINT un_Cours_sigle			UNIQUE,
-	titre 						VARCHAR(45) 
+	titreCours 					VARCHAR(45) 
 								CONSTRAINT nn_Cours_titre			NOT NULL
 								CONSTRAINT ck_Cours_titre			CHECK (LENGTH(titre >= 2)),
-	description 				VARCHAR(45) 
+	descriptionCours 			VARCHAR(45) 
 								CONSTRAINT nn_Cours_description		NOT NULL
 								CONSTRAINT ck_Cours_description		CHECK (LENGTH(description >= 2)),
 	idDepartement				NUMBER
@@ -211,6 +211,7 @@ CREATE TABLE BaremeNoteGroupeCours (
 
 -- -----------------------------------------------------
 -- GroupeCours:
+--  ENUMERATION = 'O' ou 'N' pour diffusionNotesFinales
 -- -----------------------------------------------------
 CREATE TABLE GroupeCours (
 	idGroupeCours				NUMBER
@@ -224,7 +225,7 @@ CREATE TABLE GroupeCours (
 								CONSTRAINT nn_GroupeCours_dateApprobation	NOT NULL,
 	transfertNotes 				CHAR(1) 
 								CONSTRAINT nn_GroupeCours_transfertNotes	NOT NULL,
-	diffusionNotesFinales 		TIMESTAMP
+	diffusionNotesFinales 		CHAR(1)
 								CONSTRAINT nn_GroupeCours_diffusion			NOT NULL,
 	idCours						NUMBER
 								CONSTRAINT nn_GroupeCours_idCours			NOT NULL
@@ -280,14 +281,19 @@ CREATE TABLE InscriptionGroupeCours (
 								CONSTRAINT fk_InscriptionGC_idStatutIns		REFERENCES StatutInscription(idStatutInscription),
 	idGroupeCours				NUMBER
 								CONSTRAINT nn_InscriptionGC_idGroupeCours	NOT NULL
-								CONSTRAINT fk_InscriptionGC_idGroupeCours	REFERENCES GroupeCours(idGroupeCours)
+								CONSTRAINT fk_InscriptionGC_idGroupeCours	REFERENCES GroupeCours(idGroupeCours),
+	idProgramme					NUMBER
+								CONSTRAINT nn_InscriptionGC_idProgramme		NOT NULL
+								CONSTRAINT fk_InscriptionGC_idProgramme		REFERENCES Programme(idProgramme)
 )
 /
 
 -- -----------------------------------------------------
 -- ElementsEvaluatation:
+-- 		TRIGGER pour verifier que le statut de diffusion est le meme pour tous les etudiants d'un GroupeCours
+--      ENUMERATION pour diffusion: 'O' ou 'N'
 -- -----------------------------------------------------
-CREATE TABLE ElementsEvaluatation (
+CREATE TABLE ElementsEvaluation (
 	idElementsEvaluation		NUMBER
 								CONSTRAINT nn_ElementsEvaluation_id			NOT NULL
 								CONSTRAINT pk_ElementsEvaluation			PRIMARY KEY,
@@ -301,9 +307,15 @@ CREATE TABLE ElementsEvaluatation (
 	saisieEvaluation 			TIMESTAMP 
 								CONSTRAINT nn_ElementsEvaluation_saisie		NOT NULL,
 	transfertEvaluation		    TIMESTAMP
-								CONSTRAINT nn_ElementsEvaluation_transfert	NOT NULL
-								CONSTRAINT ck_ElementsEvaluation_transfert	CHECK (transfertEvaluation >= saisieEvaluation),
-	diffusion 					TIMESTAMP
+								CONSTRAINT nn_ElementsEvaluation_transfert	NOT NULL,
+	diffusion 					CHAR(1),
+	idGroupeCours				NUMBER
+								CONSTRAINT nn_ElementsEvaluation_idGC		NOT NULL
+								CONSTRAINT fk_ElelementsEvaluation_idGC		REFERENCES GroupeCours(idGroupeCours),
+	idIncriptionGC				NUMBER
+								CONSTRAINT nn_ElementsEvaluation_idIGC		NOT NULL
+								CONSTRAINT fk_ElelementsEvaluation_idIGC	REFERENCES InscriptionGroupeCours(idInscriptionGC),
+	CONSTRAINT ck_ElementsEvaluation_transfert	CHECK (transfertEvaluation >= saisieEvaluation)
 )
 /
 
@@ -339,7 +351,7 @@ CREATE TABLE ResultatEvaluation (
 								CONSTRAINT nn_ResultatEvaluation_noteL		NOT NULL,
 	idInscriptionGC				NUMBER
 								CONSTRAINT fk_ResEva_idInscriptionGC		REFERENCES InscriptionGroupeCours(idInscriptionGC),
-	idElemEva					NUMBER
+	idElementsEvaluation		NUMBER
 								CONSTRAINT fk_ResEva_idElemeEva				REFERENCES ElementsEvaluation(idElementsEvaluation)
 )
 /
