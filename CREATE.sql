@@ -1,6 +1,3 @@
--- Ajout des TRIGGER
--- Ajout ON UPDATE CASCADE sur PRIMARY KEY -> pas besoin car utilisation de sequences
-
 -- -----------------------------------------------------
 -- BaremeConversionNoteFinale:
 -- 		{read only} -> trigger pour empecher la modification des valeurs inserees
@@ -56,7 +53,7 @@ CREATE TABLE Programme (
 								CONSTRAINT nn_Programme_cycle				NOT NULL,
 	idDepartement				NUMBER
 								CONSTRAINT nn_Programme_idDepartement		NOT NULL
-								CONSTRAINT fk_Programme_idDepartement		FOREIGN KEY REFERENCES Departement(idDepartement)
+								CONSTRAINT fk_Programme_idDepartement		REFERENCES Departement(idDepartement)
 )
 /
 
@@ -92,7 +89,7 @@ CREATE TABLE Etudiant (
 	dateDerniereConnexion		TIMESTAMP,
 	idDepartement				NUMBER
 								CONSTRAINT nn_Etudiant_idDpt		NOT NULL
-								CONSTRAINT fk_Etudiant_id			FOREIGN KEY REFERENCES Departement(idDepartement)
+								CONSTRAINT fk_Etudiant_id			REFERENCES Departement(idDepartement)
 )
 /
 
@@ -122,7 +119,7 @@ CREATE TABLE EmployeDepartement (
 								CONSTRAINT ck_Employe_courriel		CHECK(REGEXP_LIKE(courriel, '[^@!#$%?&*()+=:;",]+@[^@!#$%?&*()+=:;"S,]+')),
 	idDepartement				NUMBER
 								CONSTRAINT nn_EmployeDpt_idDpt		NOT NULL
-								CONSTRAINT fk_Employe_idDepartement	FOREIGN KEY REFERENCES Departement(idDepartement)
+								CONSTRAINT fk_Employe_idDepartement	REFERENCES Departement(idDepartement)
 )
 /
 
@@ -155,7 +152,6 @@ CREATE TABLE Enseignant (
 
 -- -----------------------------------------------------
 -- SessionCours:
--- 		date a verifier avec un trigger
 -- -----------------------------------------------------
 CREATE TABLE SessionCours (
 	idSessionCours				NUMBER
@@ -166,10 +162,10 @@ CREATE TABLE SessionCours (
 	dateDebut 					TIMESTAMP
 								CONSTRAINT nn_SessionCours_dateDebut		NOT NULL,
 	dateFin 					TIMESTAMP 
-								CONSTRAINT nn_SessionCours_dateFin			NOT NULL
-								CONSTRAINT ck_SessionCours_dateFin			CHECK (dateFin > dateDebut),
+								CONSTRAINT nn_SessionCours_dateFin			NOT NULL,
 	dateLimiteRemiseNotes 		TIMESTAMP
-								CONSTRAINT nn_SessionCours_dateLimite		NOT NULL
+								CONSTRAINT nn_SessionCours_dateLimite		NOT NULL,
+								CONSTRAINT ck_SessionCours_dateFin			CHECK (dateFin > dateDebut)
 								CONSTRAINT ck_SessionCours_dateLimite		CHECK (dateLimiteRemiseNotes > dateDebut)
 )
 /
@@ -192,7 +188,7 @@ CREATE TABLE Cours(
 								CONSTRAINT ck_Cours_description		CHECK (LENGTH(description >= 2)),
 	idDepartement				NUMBER
 								CONSTRAINT nn_Cours_idDepartemnt	NOT NULL
-								CONSTRAINT fk_Cours_idDepartement	FOREIGN KEY REFERENCES Departement(idDepartement)
+								CONSTRAINT fk_Cours_idDepartement	REFERENCES Departement(idDepartement)
 )
 /
 
@@ -232,16 +228,16 @@ CREATE TABLE GroupeCours (
 								CONSTRAINT nn_GroupeCours_diffusion			NOT NULL,
 	idCours						NUMBER
 								CONSTRAINT nn_GroupeCours_idCours			NOT NULL
-								CONSTRAINT fk_GroupeCours_idCours			FOREIGN KEY REFERENCES Cours(idCours),
+								CONSTRAINT fk_GroupeCours_idCours			REFERENCES Cours(idCours),
 	idSessionCours				NUMBER
 								CONSTRAINT nn_GroupeCours_idSessionCours	NOT NULL	
-								CONSTRAINT fk_GroupeCours_idSessionCours	FOREIGN KEY REFERENCES SessionCours(idSessionCours),
+								CONSTRAINT fk_GroupeCours_idSessionCours	REFERENCES SessionCours(idSessionCours),
 	idBaremeNoteGC				NUMBER
 								CONSTRAINT n_GroupeCours_idBaremeNoteGC		NULL
-								CONSTRAINT fk_GroupeCours_idBaremeNoteGC	FOREIGN KEY REFERENCES BaremeNoteGC(idBaremeNoteGC),
+								CONSTRAINT fk_GroupeCours_idBaremeNoteGC	REFERENCES BaremeNoteGC(idBaremeNoteGC),
 	idDepartement				NUMBER
 								CONSTRAINT nn_GroupeCours_idDepartement		NOT NULL
-								CONSTRAINT fk_GroupeCours_idEnseignant		FOREIGN KEY REFERENCES Enseignant(idEnseignant)
+								CONSTRAINT fk_GroupeCours_idEnseignant		REFERENCES Enseignant(idEnseignant)
 )
 /
 
@@ -275,13 +271,13 @@ CREATE TABLE InscriptionGroupeCours (
 	noteLettree 				VARCHAR2(2),
 	idProgramme					NUMBER
 								CONSTRAINT nn_InscriptionGC_idProgramme		NOT NULL
-								CONSTRAINT fk_InscriptionGC_idProgramme		FOREIGN KEY REFERENCES Programme(idProgramme),
+								CONSTRAINT fk_InscriptionGC_idProgramme		REFERENCES Programme(idProgramme),
 	idEtudiant					NUMBER
 								CONSTRAINT nn_InscriptionGC_idEtudiant		NOT NULL
-								CONSTRAINT fk_InscriptionGC_idEtudiant		FOREIGN KEY REFERENCES Etudiant(idEtudiant),
+								CONSTRAINT fk_InscriptionGC_idEtudiant		REFERENCES Etudiant(idEtudiant),
 	idStatutInscription			NUMBER
 								CONSTRAINT nn_InscriptionGC_idStatutIns		NOT NULL
-								CONSTRAINT fk_InscriptionGC_idStatutIns		FOREIGN KEY REFERENCES StatutInscription(idStatutInscription)
+								CONSTRAINT fk_InscriptionGC_idStatutIns		REFERENCES StatutInscription(idStatutInscription)
 )
 /
 
@@ -321,9 +317,9 @@ CREATE TABLE StatsEvaluation (
 	ecartType 					NUMBER	
 								CONSTRAINT nn_StatsEvaluation_ecartType		NOT NULL,
 	idElementsEvaluation		NUMBER
-								CONSTRAINT fk_StatsEvaluation_idElemEva		FOREIGN KEY REFERENCES ElementsEvaluation(idElementsEvaluation),
+								CONSTRAINT fk_StatsEvaluation_idElemEva		REFERENCES ElementsEvaluation(idElementsEvaluation),
 	idGroupeCours				NUMBER
-								CONSTRAINT fk_StatsEvaluation_idGC			FOREIGN KEY REFERENCES GroupeCours(idGroupeCOurs)
+								CONSTRAINT fk_StatsEvaluation_idGC			REFERENCES GroupeCours(idGroupeCOurs)
 )
 /
 
@@ -339,9 +335,9 @@ CREATE TABLE ResultatEvaluation (
 	noteLettree 				VARCHAR2(2) 
 								CONSTRAINT nn_ResultatEvaluation_noteL		NOT NULL,
 	idInscriptionGC				NUMBER
-								CONSTRAINT fk_ResEva_idInscriptionGC		FOREIGN KEY REFERENCES InscriptionGroupeCours(idInscriptionGC),
+								CONSTRAINT fk_ResEva_idInscriptionGC		REFERENCES InscriptionGroupeCours(idInscriptionGC),
 	idElemEva					NUMBER
-								CONSTRAINT fk_ResEva_idElemeEva				FOREIGN KEY REFERENCES ElementsEvaluation(idElementsEvaluation)
+								CONSTRAINT fk_ResEva_idElemeEva				REFERENCES ElementsEvaluation(idElementsEvaluation)
 )
 /
 
