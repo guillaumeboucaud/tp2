@@ -87,9 +87,9 @@ CREATE TABLE Etudiant (
 								CONSTRAINT nn_Etudiant_nbConn		NOT NULL
 								CONSTRAINT ck_Etudiant_nbConn		CHECK (nbConnexionsInfructueuses BETWEEN 0 AND 5),
 	dateDerniereConnexion		TIMESTAMP,
-	idDepartement				NUMBER
-								CONSTRAINT nn_Etudiant_idDpt		NOT NULL
-								CONSTRAINT fk_Etudiant_id			REFERENCES Departement(idDepartement)
+	idProgramme					NUMBER
+								CONSTRAINT nn_Etudiant_idProgramme	NOT NULL
+								CONSTRAINT fk_Etudiant_id			REFERENCES Programme(idProgramme)
 )
 /
 
@@ -277,7 +277,10 @@ CREATE TABLE InscriptionGroupeCours (
 								CONSTRAINT fk_InscriptionGC_idEtudiant		REFERENCES Etudiant(idEtudiant),
 	idStatutInscription			NUMBER
 								CONSTRAINT nn_InscriptionGC_idStatutIns		NOT NULL
-								CONSTRAINT fk_InscriptionGC_idStatutIns		REFERENCES StatutInscription(idStatutInscription)
+								CONSTRAINT fk_InscriptionGC_idStatutIns		REFERENCES StatutInscription(idStatutInscription),
+	idGroupeCours				NUMBER
+								CONSTRAINT nn_InscriptionGC_idGroupeCours	NOT NULL
+								CONSTRAINT fk_InscriptionGC_idGroupeCours	REFERENCES GroupeCours(idGroupeCours)
 )
 /
 
