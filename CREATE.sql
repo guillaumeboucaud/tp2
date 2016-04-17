@@ -235,8 +235,8 @@ CREATE TABLE GroupeCours (
 	idBaremeNoteGC				NUMBER
 								CONSTRAINT n_GroupeCours_idBaremeNoteGC		NULL
 								CONSTRAINT fk_GroupeCours_idBaremeNoteGC	REFERENCES BaremeNoteGC(idBaremeNoteGC),
-	idDepartement				NUMBER
-								CONSTRAINT nn_GroupeCours_idDepartement		NOT NULL
+	idEnseignant				NUMBER
+								CONSTRAINT nn_GroupeCours_idEnseignant		NOT NULL
 								CONSTRAINT fk_GroupeCours_idEnseignant		REFERENCES Enseignant(idEnseignant)
 )
 /
