@@ -1,19 +1,6 @@
 ------------------------------------------------------------------------------------------
--- Creation des sequences et triggers de controle pour les cles primaires de chaque table
+-- Creation des sequences et triggers de controle pour les cles primaires de chaque table concernee
 ------------------------------------------------------------------------------------------
-CREATE SEQUENCE seqBaremeNoteFinale
-START WITH 1
-INCREMENT BY 1
-/
-
-CREATE OR REPLACE TRIGGER trBaremeNoteFinale_BIR_PK
-BEFORE INSERT ON BaremeNoteFinale
-FOR EACH ROW
-BEGIN
-	:new.idBaremeNoteFinale := seqBaremeNoteFinale.nextVal;
-END;
-/
-
 CREATE SEQUENCE seqDepartement
 START WITH 1
 INCREMENT BY 1
@@ -119,7 +106,7 @@ END;
 /
 
 CREATE SEQUENCE seqStatutInscription
-START WITH 1
+START WITH 8
 INCREMENT BY 1
 /
 
@@ -180,6 +167,18 @@ BEFORE INSERT ON ResultatEvaluation
 FOR EACH ROW
 BEGIN
 	:new.idResultatEvaluation := seqResultatEvaluation.nextVal;
+END;
+/
+
+----------------------------------------------------------------
+-- Creation du trigger pour interdire les modifications 
+-- de la table BaremeConversionNoteFinale
+----------------------------------------------------------------
+CREATE OR REPLACE TRIGGER trBaremeNoteFinale_BUIR
+BEFORE UPDATE OR INSERT ON BaremeConversionNoteFinale
+FOR EACH ROW
+BEGIN
+	RAISE_APPLICATION_ERROR (-20100, 'Il est impossible de modifier cette table');
 END;
 /
 
