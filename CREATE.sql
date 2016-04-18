@@ -158,7 +158,8 @@ CREATE TABLE SessionCours (
 								CONSTRAINT nn_SessionCours_id				NOT NULL
 								CONSTRAINT pk_SessionCours					PRIMARY KEY,
 	nomSession 					VARCHAR(45) 
-								CONSTRAINT nn_SessionCours_nomSession		NOT NULL,
+								CONSTRAINT nn_SessionCours_nomSession		NOT NULL
+								CONSTRAINT un_SessionCours_nomSession		UNIQUE,
 	dateDebut 					TIMESTAMP
 								CONSTRAINT nn_SessionCours_dateDebut		NOT NULL,
 	dateFin 					TIMESTAMP 
