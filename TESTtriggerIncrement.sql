@@ -23,7 +23,7 @@ SELECT * FROM BaremeNoteGroupeCours
 SELECT * FROM GroupeCours
 
 -- Incrémentation de idStatutInscription
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (seqStatutInscription.nextval, );  --ICI
+INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (seqStatutInscription.nextval,'');  --ICI
 SELECT * FROM StatutInscription
 
 -- Incrémentation de idElementsEvaluation

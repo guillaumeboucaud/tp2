@@ -28,7 +28,7 @@ CREATE TABLE Departement (
 								CONSTRAINT nn_Departement_identifiant		NOT NULL,
 	nomDepartement 				VARCHAR2(45) 
 								CONSTRAINT nn_Departement_nom				NOT NULL
-								CONSTRAINT ck_Department_nom				CHECK (LENGTH(nomDepartment) >= 2,
+								CONSTRAINT ck_Department_nom				CHECK (LENGTH(nomDepartment) >= 2),
 	nomFaculte 					VARCHAR2(45)
 								CONSTRAINT nn_Departement_nomFaculte		NOT NULL
 								CONSTRAINT ck_Departement_nomFaculte		CHECK(LENGTH(nomFaculte) >= 2),
@@ -224,9 +224,11 @@ CREATE TABLE GroupeCours (
 	dateApprobation 			TIMESTAMP
 								CONSTRAINT nn_GroupeCours_dateApprobation	NOT NULL,
 	transfertNotes 				CHAR(1) 
-								CONSTRAINT nn_GroupeCours_transfertNotes	NOT NULL,
+								CONSTRAINT nn_GroupeCours_transfertNotes	NOT NULL
+                        CONSTRAINT ck_GroupeCours_transfertNotes	CHECK (transfertNotes IN ('O','N')),
 	diffusionNotesFinales 		CHAR(1)
-								CONSTRAINT nn_GroupeCours_diffusion			NOT NULL,
+								CONSTRAINT nn_GroupeCours_diffusion			NOT NULL
+                        CONSTRAINT ck_GroupeCours_diffusion			CHECK (diffusionNotesFinales IN ('O','N')),
 	idCours						NUMBER
 								CONSTRAINT nn_GroupeCours_idCours			NOT NULL
 								CONSTRAINT fk_GroupeCours_idCours			REFERENCES Cours(idCours),
@@ -306,9 +308,10 @@ CREATE TABLE ElementsEvaluation (
 	ponderation 				NUMBER,
 	saisieEvaluation 			TIMESTAMP 
 								CONSTRAINT nn_ElementsEvaluation_saisie		NOT NULL,
-	transfertEvaluation		    TIMESTAMP
+	transfertEvaluation		TIMESTAMP
 								CONSTRAINT nn_ElementsEvaluation_transfert	NOT NULL,
-	diffusion 					CHAR(1),
+	diffusion 					CHAR(1)
+                        CONSTRAINT ck_ElementsEvaluation_diff    CHECK (diffusion in ('O','N')),
 	idGroupeCours				NUMBER
 								CONSTRAINT nn_ElementsEvaluation_idGC		NOT NULL
 								CONSTRAINT fk_ElelementsEvaluation_idGC		REFERENCES GroupeCours(idGroupeCours),
@@ -325,15 +328,15 @@ CREATE TABLE ElementsEvaluation (
 --		Attributs derives = moyenne + ecartType
 -- -----------------------------------------------------
 CREATE TABLE StatsEvaluation (
-	idStatsEvaluation			NUMBER
+	idStatsEvaluation		NUMBER
 								CONSTRAINT nn_StatsEvaluation_id			NOT NULL,
 	moyenne 					NUMBER
 								CONSTRAINT ck_StatsEvaluation_moyenne		CHECK (moyenne BETWEEN 0 AND 100),
-	ecartType 					NUMBER	
+	ecartType 				NUMBER	
 								CONSTRAINT nn_StatsEvaluation_ecartType		NOT NULL,
-	idElementsEvaluation		NUMBER
+	idElementsEvaluation	NUMBER
 								CONSTRAINT fk_StatsEvaluation_idElemEva		REFERENCES ElementsEvaluation(idElementsEvaluation),
-	idGroupeCours				NUMBER
+	idGroupeCours			NUMBER
 								CONSTRAINT fk_StatsEvaluation_idGC			REFERENCES GroupeCours(idGroupeCOurs)
 )
 /
