@@ -334,7 +334,7 @@ CREATE TABLE StatsEvaluation (
 	idElementsEvaluation		NUMBER
 								CONSTRAINT fk_StatsEvaluation_idElemEva		REFERENCES ElementsEvaluation(idElementsEvaluation),
 	idGroupeCours				NUMBER
-								CONSTRAINT fk_StatsEvaluation_idGC			REFERENCES GroupeCours(idGroupeCOurs)
+								CONSTRAINT fk_StatsEvaluation_idGC			REFERENCES GroupeCours(idGroupeCours)
 )
 /
 
