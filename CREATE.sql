@@ -281,10 +281,7 @@ CREATE TABLE InscriptionGroupeCours (
 								CONSTRAINT fk_InscriptionGC_idStatutIns		REFERENCES StatutInscription(idStatutInscription),
 	idGroupeCours				NUMBER
 								CONSTRAINT nn_InscriptionGC_idGroupeCours	NOT NULL
-								CONSTRAINT fk_InscriptionGC_idGroupeCours	REFERENCES GroupeCours(idGroupeCours),
-	idProgramme					NUMBER
-								CONSTRAINT nn_InscriptionGC_idProgramme		NOT NULL
-								CONSTRAINT fk_InscriptionGC_idProgramme		REFERENCES Programme(idProgramme)
+								CONSTRAINT fk_InscriptionGC_idGroupeCours	REFERENCES GroupeCours(idGroupeCours)
 )
 /
 
