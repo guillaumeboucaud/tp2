@@ -225,10 +225,10 @@ CREATE TABLE GroupeCours (
 								CONSTRAINT nn_GroupeCours_dateApprobation	NOT NULL,
 	transfertNotes 				CHAR(1) 
 								CONSTRAINT nn_GroupeCours_transfertNotes	NOT NULL
-                        CONSTRAINT ck_GroupeCours_transfertNotes	CHECK (transfertNotes IN ('O','N')),
+								CONSTRAINT ck_GroupeCours_transfertNotes	CHECK (transfertNotes IN ('O','N')),
 	diffusionNotesFinales 		CHAR(1)
 								CONSTRAINT nn_GroupeCours_diffusion			NOT NULL
-                        CONSTRAINT ck_GroupeCours_diffusion			CHECK (diffusionNotesFinales IN ('O','N')),
+								CONSTRAINT ck_GroupeCours_diffusion			CHECK (diffusionNotesFinales IN ('O','N')),
 	idCours						NUMBER
 								CONSTRAINT nn_GroupeCours_idCours			NOT NULL
 								CONSTRAINT fk_GroupeCours_idCours			REFERENCES Cours(idCours),
@@ -246,13 +246,13 @@ CREATE TABLE GroupeCours (
 
 -- -----------------------------------------------------
 -- StatutInscription:
---		enumeration pour le type d'inscription ou classe pour eviter une enumeration?
+--		enumeration pour le type d'inscription ou classe pour eviter une enumeration? Non, conserver possiblilite de modifier facilement
 -- -----------------------------------------------------
 CREATE TABLE StatutInscription (
 	idStatutInscription 		NUMBER
 								CONSTRAINT nn_StatutInscription_id 			NOT NULL
 								CONSTRAINT pk_StatutInscription				PRIMARY KEY,
-	typeInscription				VARCHAR2(45) 
+	typeInscription				CHAR(2) 
 								CONSTRAINT nn_StatutInscription_type		NOT NULL
 								CONSTRAINT un_StatutInscription_type		UNIQUE,
 	libelleExplicatif 			VARCHAR2(100) 
@@ -305,10 +305,10 @@ CREATE TABLE ElementsEvaluation (
 	ponderation 				NUMBER,
 	saisieEvaluation 			TIMESTAMP 
 								CONSTRAINT nn_ElementsEvaluation_saisie		NOT NULL,
-	transfertEvaluation		TIMESTAMP
+	transfertEvaluation			TIMESTAMP
 								CONSTRAINT nn_ElementsEvaluation_transfert	NOT NULL,
 	diffusion 					CHAR(1)
-                        CONSTRAINT ck_ElementsEvaluation_diff    CHECK (diffusion in ('O','N')),
+								CONSTRAINT ck_ElementsEvaluation_diff    	CHECK (diffusion in ('O','N')),
 	idGroupeCours				NUMBER
 								CONSTRAINT nn_ElementsEvaluation_idGC		NOT NULL
 								CONSTRAINT fk_ElelementsEvaluation_idGC		REFERENCES GroupeCours(idGroupeCours),
@@ -325,15 +325,15 @@ CREATE TABLE ElementsEvaluation (
 --		Attributs derives = moyenne + ecartType
 -- -----------------------------------------------------
 CREATE TABLE StatsEvaluation (
-	idStatsEvaluation		NUMBER
+	idStatsEvaluation			NUMBER
 								CONSTRAINT nn_StatsEvaluation_id			NOT NULL,
 	moyenne 					NUMBER
 								CONSTRAINT ck_StatsEvaluation_moyenne		CHECK (moyenne BETWEEN 0 AND 100),
-	ecartType 				NUMBER	
+	ecartType 					NUMBER	
 								CONSTRAINT nn_StatsEvaluation_ecartType		NOT NULL,
-	idElementsEvaluation	NUMBER
+	idElementsEvaluation		NUMBER
 								CONSTRAINT fk_StatsEvaluation_idElemEva		REFERENCES ElementsEvaluation(idElementsEvaluation),
-	idGroupeCours			NUMBER
+	idGroupeCours				NUMBER
 								CONSTRAINT fk_StatsEvaluation_idGC			REFERENCES GroupeCours(idGroupeCOurs)
 )
 /
