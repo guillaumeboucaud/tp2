@@ -247,6 +247,7 @@ CREATE TABLE GroupeCours (
 -- -----------------------------------------------------
 -- StatutInscription:
 --		enumeration pour le type d'inscription ou classe pour eviter une enumeration? Non, conserver possiblilite de modifier facilement
+--      peut etre faire des INSERT des choix de base dans DATA.sql
 -- -----------------------------------------------------
 CREATE TABLE StatutInscription (
 	idStatutInscription 		NUMBER
