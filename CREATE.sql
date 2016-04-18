@@ -271,8 +271,7 @@ CREATE TABLE InscriptionGroupeCours (
 								CONSTRAINT pk_InscriptionGC					PRIMARY KEY,
 	ordre						NUMBER
 								CONSTRAINT nn_InscriptionGC_ordre			NOT NULL,
-	noteNumerique 				NUMBER 
-								CONSTRAINT nn_InscriptionGC_noteNum			NOT NULL,
+	noteNumerique 				NUMBER,
 	noteLettree 				VARCHAR2(2),
 	idProgramme					NUMBER
 								CONSTRAINT nn_InscriptionGC_idProgramme		NOT NULL
