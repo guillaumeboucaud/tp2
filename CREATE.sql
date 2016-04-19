@@ -377,8 +377,3 @@ CREATE TABLE ResultatEvaluation (
 								CONSTRAINT fk_ResEva_idInscriptionGC		REFERENCES InscriptionGroupeCours(idInscriptionGC),
 	idElementsEvaluation		NUMBER
 								CONSTRAINT fk_ResEva_idElemeEva				REFERENCES ElementsEvaluation(idElementsEvaluation)
-
-    Status API Training Shop Blog About 
-
-    © 2016 GitHub, Inc. Terms Privacy Security Contact Help 
-

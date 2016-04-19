@@ -23,7 +23,6 @@ SELECT * FROM BaremeNoteGroupeCours
 SELECT * FROM GroupeCours
 
 -- Incrémentation de idStatutInscription
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (seqStatutInscription.nextval,'');  --ICI
 SELECT * FROM StatutInscription
 
 -- Incrémentation de idElementsEvaluation
@@ -31,5 +30,15 @@ INSERT INTO ElementsEvaluatation(idElementsEvaluation, titreEvaluation, ordreApp
 SELECT * FROM ElementsEvaluatation
 
 -- Incrémentation de idProgramme
-INSERT INTO Programme (idProgramme, codeNumerique, titre, typeProgramme, cycleProgramme, idDepartement) VALUE (idProgramme.nextval, '7008' , 'Biochimie', 1, seqDepartement.currval);
+INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUE (idProgramme.nextval, '7008' , 'Biochimie', 1, seqDepartement.currval);
 SELECT * FROM Programme
+
+----------------------------------------------------------------
+-- Creation du trigger pour interdire les modifications 
+-- de la table BaremeConversionNoteFinale
+----------------------------------------------------------------
+INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (idBaremeNoteGC, 'R', 0);
+
+--Tester la PROCEDURE genererNotesFinales
+EXECUTE genererNotesFinales(seqGroupeCours.currval);
+
