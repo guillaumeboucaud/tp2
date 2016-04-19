@@ -30,8 +30,6 @@ DROP TABLE Programme
 /
 DROP TABLE Departement
 /
-DROP TABLE BaremeConversionNoteFinale
-/
 
 COMMIT
 /
