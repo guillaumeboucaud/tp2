@@ -101,3 +101,6 @@ CREATE INDEX idx_StatsEva_ElementsEva		ON StatsEvaluation(idElementsEvaluation);
 -- WHERE  idGroupeCours = 'idGroupeCours1' 
 -- ORDER BY codePermanent
 -----------------------------------------------------
+
+COMMIT
+/
