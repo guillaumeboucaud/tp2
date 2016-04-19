@@ -27,7 +27,11 @@ INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeui
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (10, 'D+', 62);
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (11, 'D', 60);
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (12, 'E', 0);
-
+/
+REVOKE ALL PRIVILEGES TO PUBLIC;
+/
+GRANT SELECT TO PUBLIC;
+/
 -- -----------------------------------------------------
 -- Departement:
 -- -----------------------------------------------------

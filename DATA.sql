@@ -32,19 +32,6 @@ INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLim
 INSERT INTO Cours(idCours, sigleCours, titre, description, idDepartement) VALUES (seqCours.nextval,'INF3105', 'Structures de données et algorithmes', 'Graphes, arbres, tables..',seqDepartement.currval);
 INSERT INTO Cours(idCours, sigleCours, titre, description, idDepartement) VALUES (seqCours.nextval,'INF4170', 'Architecture des ordinateurs', 'Mémoires: architecture,fonctionnement,types..',seqDepartement.currval);
 
-INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'A+', 95);
-INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'A', 90);
-INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'A-', 85);
-INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'B+', 82);
-INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'B', 78);
-INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'B-', 75);
-INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'C+', 72);
-INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'C', 68);
-INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'C-', 65);
-INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'D+', 62);
-INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'D', 60);
-INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'E', 0);
-
 --ICI 
 INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idDepartement) VALUES (seqGroupeCours.nextval, 20, '2015-05-15 00:00:00', '2015-05-01 00:00:00', transfertNotes, '2016-01-05 00:00:00', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, seqDepartement.currval);
 INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idDepartement) VALUES (seqGroupeCours.nextval, 30, '2015-05-15 00:00:00', '2015-05-01 00:00:00', transfertNotes, '2016-01-05 00:00:00', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, seqDepartement.currval);

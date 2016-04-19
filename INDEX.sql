@@ -79,6 +79,28 @@ CREATE INDEX idx_StatsEva_moy_ecartType		ON StatsEvaluation(moyenne, ecartType);
 CREATE INDEX idx_StatsEva_ElementsEva		ON StatsEvaluation(idElementsEvaluation);
 
 -----------------------------------------------------
+-- Cas 2.4
+-----------------------------------------------------
+-- Requete SQL:
+--
+-- SELECT elem.ordreApparition,
+--			 elem.titreEvaluation,
+--    	 elem.resultatMax,
+--        elem.ponderation,
+-- 		 elem.saisieEvaluation,
+--	       elem.transfertEvaluation,
+--        elem.diffusion,
+--	       elem.idGroupeCours
+-- FROM ElementsEvaluation AS elem 
+--      JOIN GroupeCours AS gc ON gc.idGroupeCours = elem.idGroupeCours
+-- WHERE gc.idGroupCours = 'id_GroupsCours' AND 
+--       gc.idEnseignant = 'id_enseignant'
+-- ORDER BY elem.ordreApparition;
+--
+CREATE INDEX idx_ElementsEva_GC ON ElementsEvaluation(idGroupeCours, ordreApparition);
+CREATE INDEX idx_GroupeCours_idEnseignant ON GroupCours(idEnseignant);
+
+-----------------------------------------------------
 -- Cas 2.5
 -----------------------------------------------------
 --
