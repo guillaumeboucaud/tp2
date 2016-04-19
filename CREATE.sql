@@ -27,7 +27,11 @@ INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeui
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (10, 'D+', 62);
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (11, 'D', 60);
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (12, 'E', 0);
-
+/
+REVOKE ALL PRIVILEGES TO PUBLIC;
+/
+GRANT SELECT TO PUBLIC;
+/
 -- -----------------------------------------------------
 -- Departement:
 -- -----------------------------------------------------
@@ -279,6 +283,7 @@ INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExpli
 INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (5, 'RX', 'Abandon suite a un prealable non satisfait');
 INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (6, 'UX', 'Annulation par l\'universite');
 INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (7, 'W', 'Auditeur libre non credite');
+INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (8, 'V', 'Inscription Valide');
 
 -- -----------------------------------------------------
 -- InscriptionGroupeCours:
@@ -372,3 +377,8 @@ CREATE TABLE ResultatEvaluation (
 								CONSTRAINT fk_ResEva_idInscriptionGC		REFERENCES InscriptionGroupeCours(idInscriptionGC),
 	idElementsEvaluation		NUMBER
 								CONSTRAINT fk_ResEva_idElemeEva				REFERENCES ElementsEvaluation(idElementsEvaluation)
+
+    Status API Training Shop Blog About 
+
+    © 2016 GitHub, Inc. Terms Privacy Security Contact Help 
+
