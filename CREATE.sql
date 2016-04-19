@@ -283,6 +283,7 @@ INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExpli
 INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (5, 'RX', 'Abandon suite a un prealable non satisfait');
 INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (6, 'UX', 'Annulation par l\'universite');
 INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (7, 'W', 'Auditeur libre non credite');
+INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (8, 'V', 'Inscription Valide');
 
 -- -----------------------------------------------------
 -- InscriptionGroupeCours:
