@@ -62,11 +62,11 @@ INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone
 INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'Jacques', '5149269880', 'jacquesBergeruqam.ca');
 
 -- dateFin > dateDebut
-INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-12-21 00:00:00', '2015-09-08 00:00:00', '2015-11-11 00:00:00');
-INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-09-08 00:00:00', '2015-09-08 00:00:00', '2015-11-11 00:00:00');
+INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Automne2015', '2015-12-21 00:00:00', '2015-09-08 00:00:00', '2015-11-11 00:00:00');
+INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Automne2015', '2015-09-08 00:00:00', '2015-09-08 00:00:00', '2015-11-11 00:00:00');
 
 -- dateLimiteRemiseNotes > dateDebut
-INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-09-08 00:00:00');
+INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Automne2015', '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-09-08 00:00:00');
 
 -- noteSeuil BETWEEN 0 AND 100
 -- Plus grand que 100
@@ -78,11 +78,11 @@ INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (seqBaremeNoteFinale.nextval,'D+',102);
 
 -- resultatMax BETWEEN 0 AND 100
-INSERT INTO ElementsEvaluatation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP2', 1, 809, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval);
+INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP2', 1, 809, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval);
 --transfertEvaluation >= saisieEvaluation
-INSERT INTO ElementsEvaluatation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 INTRA', 1, 89, 30, '2015-10-08 00:00:00', '2015-10-06 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval);
+INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 INTRA', 1, 89, 30, '2015-10-08 00:00:00', '2015-10-06 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval);
 --diffusion in ('O','N')
-INSERT INTO ElementsEvaluatation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP1', 1, 89, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'l', seqGroupeCours.currval, seqInscriptionGC.currval);
+INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP1', 1, 89, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'l', seqGroupeCours.currval, seqInscriptionGC.currval);
 
 
 --moyenne BETWEEN 0 AND 100
