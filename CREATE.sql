@@ -13,38 +13,6 @@ CREATE TABLE BaremeConversionNoteFinale (
 								CONSTRAINT un_BaremeNF_noteSeuil			UNIQUE
 								CONSTRAINT ck_BaremeNF_noteSeuil			CHECK (noteSeuil BETWEEN 0 AND 100)
 )
-/
-
-COMMIT
-/
-
-INSERT INTO BaremeConversionNoteFinale VALUES (1 , 'A+', 95)
-/
-INSERT INTO BaremeConversionNoteFinale VALUES (2 , 'A', 90)
-/
-INSERT INTO BaremeConversionNoteFinale VALUES (3 , 'A-', 85)
-/
-INSERT INTO BaremeConversionNoteFinale VALUES (4 , 'B+', 82)
-/
-INSERT INTO BaremeConversionNoteFinale VALUES (5 , 'B', 78)
-/
-INSERT INTO BaremeConversionNoteFinale VALUES (6 , 'B-', 75)
-/
-INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (7 , 'C+', 72)
-/
-INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (8 , 'C', 68)
-/
-INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (9 , 'C-', 65)
-/
-INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (10 , 'D+', 62)
-/
-INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (11 , 'D', 60)
-/
-INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (12 , 'E', 0)
-/
-
-COMMIT
-/
 
 -- -----------------------------------------------------
 -- Departement:
@@ -288,16 +256,6 @@ CREATE TABLE StatutInscription (
 	libelleExplicatif 			VARCHAR2(100) 
 								CONSTRAINT nn_StatutInscription_libelle		NOT NULL
 )
-/
-
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (1, '##', 'Suspension de la notation en raison d''une infraction de nature academique');
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (2, 'XE', 'Nombre d''abandons autorises depasse');
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (3, 'XX', 'Abandon sans remboursement');
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (4, 'FX', 'Abandon pour defaut de paiement');
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (5, 'RX', 'Abandon suite a un prealable non satisfait');
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (6, 'UX', 'Annulation par l''universite');
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (7, 'W', 'Auditeur libre non credite');
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (8, 'V', 'Inscription Valide');
 
 -- -----------------------------------------------------
 -- InscriptionGroupeCours:
