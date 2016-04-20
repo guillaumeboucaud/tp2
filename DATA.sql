@@ -1,20 +1,4 @@
-//On vide puis on recreer quelques donnees 
 
-TRUNCATE TABLE BaremeConversionNoteFinale;
-TRUNCATE TABLE Departement;
-TRUNCATE TABLE Programme;
-TRUNCATE TABLE Etudiant;
-TRUNCATE TABLE EmployeDepartement;
-TRUNCATE TABLE Enseignant;
-TRUNCATE TABLE SessionCours;
-TRUNCATE TABLE Cours;
-TRUNCATE TABLE BaremeNoteGroupeCours;
-TRUNCATE TABLE GroupeCours;
-TRUNCATE TABLE StatutInscription;
-TRUNCATE TABLE InscriptionGroupeCours;
-TRUNCATE TABLE ElementsEvaluation;
-TRUNCATE TABLE StatsEvaluation;
-TRUNCATE TABLE ResultatEvaluation;
 
 INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012015, 'Département d`informatique de l`UQAM', 'UQAM');
 
