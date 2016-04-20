@@ -42,8 +42,8 @@ INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone
 
 INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-11-11 00:00:00');
 
-INSERT INTO Cours(idCours, sigleCours, titre, description, idDepartement) VALUES (seqCours.nextval,'INF3105', 'Structures de données et algorithmes', 'Graphes, arbres, tables..',seqDepartement.currval);
-INSERT INTO Cours(idCours, sigleCours, titre, description, idDepartement) VALUES (seqCours.nextval,'INF4170', 'Architecture des ordinateurs', 'Mémoires: architecture,fonctionnement,types..',seqDepartement.currval);
+INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF3105', 'Structures de données et algorithmes', 'Graphes, arbres, tables..',seqDepartement.currval);
+INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF4170', 'Architecture des ordinateurs', 'Mémoires: architecture,fonctionnement,types..',seqDepartement.currval);
 
 --INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'A+', 95);
 --INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'A', 90);
