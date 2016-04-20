@@ -1,3 +1,32 @@
+SET ECHO ON
+SET SERVEROUTPUT ON
+
+--Recommencer a neuf
+TRUNCATE TABLE Departement;
+
+TRUNCATE TABLE Programme;
+
+TRUNCATE TABLE Etudiant;
+
+TRUNCATE TABLE EmployeDepartement;
+
+TRUNCATE TABLE Enseignant;
+
+TRUNCATE TABLE SessionCours;
+
+TRUNCATE TABLE Cours;
+
+TRUNCATE TABLE BaremeNoteGroupeCours;
+
+TRUNCATE TABLE GroupeCours;
+
+TRUNCATE TABLE InscriptionGroupeCours;
+
+TRUNCATE TABLE ElementsEvaluation;
+
+TRUNCATE TABLE StatsEvaluation;
+
+TRUNCATE TABLE ResultatEvaluation;
 
 
 INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012015, 'Département d`informatique de l`UQAM', 'UQAM');
@@ -39,3 +68,4 @@ INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme
 INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP1', 1, 89, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval);
 
 COMMIT;
+
