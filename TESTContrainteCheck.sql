@@ -90,7 +90,7 @@ INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreAppar
 INSERT INTO StatsEvaluation (idStatsEvaluation, moyenne, ecartType, idElementsEvaluation, idGroupeCours) VALUES (seqStatsEvaluation.nextval, 300, 9, seqElementsEvaluation.currval ,seqElementsEvaluation.currval);
 
 --un_Programme_codeNum				UNIQUE
-INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUE (idProgramme.nextval, '7316' , 'Génie Logiciel', 1, seqDepartement.currval);
+INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUES (idProgramme.nextval, '7316' , 'Génie Logiciel', 1, seqDepartement.currval);
 
 --diffusionNotesFinales IN ('O','N')
 INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idEnseignant) VALUES (seqGroupeCours.nextval, 30, '2015-05-15 00:00:00', '2015-05-01 00:00:00', 'O', 'i', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, 2);
