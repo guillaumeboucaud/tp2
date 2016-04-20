@@ -36,7 +36,7 @@ CREATE OR REPLACE TRIGGER trEmployeDpt_BIR_PK
 BEFORE INSERT ON EmployeDepartement
 FOR EACH ROW
 BEGIN
-	:new.idEmployeDepartement := seqEmployeDepartement.nextVal;
+	:new.idEmploye := seqEmployeDepartement.nextVal;
 END;
 /
 

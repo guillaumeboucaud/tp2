@@ -44,28 +44,29 @@ INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, co
 -- Plus que 5
 INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'TREL02519207', '113446', 'Tremblay', 'Lara', '5142298765', 'lara021@uqam.ca', 9, SYSDATE, seqDepartement.currval);
 
+
 -- LENGTH(nom) >= 2
-INSERT INTO EmployeDepartement(idEmploye, codeMS,  motDePasse, nom, prenom, telephone, courriel, idDepartement)VALUES(seqEmployeDepartement.nextval, 'ml9912098911', '00120996', 'B', 'Jacques', '5149269880', 'jacquesBerger@uqam.ca', seqDepartement.currval);
+INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'B', 'Jacques', '5149269880', 'jacquesBerger@uqam.ca');
 
 -- LENGTH(prenom) >= 2
-INSERT INTO EmployeDepartement(idEmploye, codeMS,  motDePasse, nom, prenom, telephone, courriel, idDepartement)VALUES(seqEmployeDepartement.nextval, 'ml9912098911', '00120996', 'Berger', 'J', '5149269880', 'jacquesBerger@uqam.ca', seqDepartement.currval);
+INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'J', '5149269880', 'jacquesBerger@uqam.ca');
 
 -- REGEXP_LIKE(telephone, '[0-9]{10}')
 -- Plus que 10 chiffres
-INSERT INTO EmployeDepartement(idEmploye, codeMS,  motDePasse, nom, prenom, telephone, courriel, idDepartement)VALUES(seqEmployeDepartement.nextval, 'ml9912098911', '00120996', 'Berger', 'Jacques', '5149269000880', 'jacquesBerger@uqam.ca', seqDepartement.currval);
+INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'Jacques', '514926988888880', 'jacquesBerger@uqam.ca');
 -- Moins que 10 chiffres
-INSERT INTO EmployeDepartement(idEmploye, codeMS,  motDePasse, nom, prenom, telephone, courriel, idDepartement)VALUES(seqEmployeDepartement.nextval, 'ml9912098911', '00120996', 'Berger', 'Jacques', '5149880', 'jacquesBerger@uqam.ca', seqDepartement.currval);
+INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'Jacques', '5269880', 'jacquesBerger@uqam.ca');
 
 -- REGEXP_LIKE(courriel, '[^@!#$%?&*()+=:;",]+@[^@!#$%?&*()+=:;"S,]+')
 -- Pas de @
-INSERT INTO EmployeDepartement(idEmploye, codeMS,  motDePasse, nom, prenom, telephone, courriel, idDepartement)VALUES(seqEmployeDepartement.nextval, 'ml9912098911', '00120996', 'Berger', 'Jacques', '5149269880', 'jacquesBergeruqam.ca', seqDepartement.currval);
+INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'Jacques', '5149269880', 'jacquesBergeruqam.ca');
 
 -- dateFin > dateDebut
-INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-12-21 00:00:00', '2015-09-08 00:00:00', '2015-11-11 00:00:00');
-INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-09-08 00:00:00', '2015-09-08 00:00:00', '2015-11-11 00:00:00');
+INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Automne2015', '2015-12-21 00:00:00', '2015-09-08 00:00:00', '2015-11-11 00:00:00');
+INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Automne2015', '2015-09-08 00:00:00', '2015-09-08 00:00:00', '2015-11-11 00:00:00');
 
 -- dateLimiteRemiseNotes > dateDebut
-INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-09-08 00:00:00');
+INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Automne2015', '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-09-08 00:00:00');
 
 -- noteSeuil BETWEEN 0 AND 100
 -- Plus grand que 100
@@ -77,14 +78,21 @@ INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (seqBaremeNoteFinale.nextval,'D+',102);
 
 -- resultatMax BETWEEN 0 AND 100
-INSERT INTO ElementsEvaluatation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP1', 1, 1000, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', '2015-10-08 00:00:00');
+INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP2', 1, 809, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval);
 --transfertEvaluation >= saisieEvaluation
-INSERT INTO ElementsEvaluatation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP1', 1, 98, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', '2015-10-06 00:00:00');
+INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 INTRA', 1, 89, 30, '2015-10-08 00:00:00', '2015-10-06 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval);
+--diffusion in ('O','N')
+INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP1', 1, 89, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'l', seqGroupeCours.currval, seqInscriptionGC.currval);
+
 
 --moyenne BETWEEN 0 AND 100
 -- Plus grand que 100
 INSERT INTO StatsEvaluation (idStatsEvaluation, moyenne, ecartType, idElementsEvaluation, idGroupeCours) VALUES (seqStatsEvaluation.nextval, 300, 9, seqElementsEvaluation.currval ,seqElementsEvaluation.currval);
 
 --un_Programme_codeNum				UNIQUE
-INSERT INTO Programme (idProgramme, codeNumerique, titre, typeProgramme, cycleProgramme, idDepartement) VALUE (idProgramme.nextval, '7316' , 'Génie Logiciel', 1, seqDepartement.currval);
+INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUE (idProgramme.nextval, '7316' , 'Génie Logiciel', 1, seqDepartement.currval);
 
+--diffusionNotesFinales IN ('O','N')
+INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idEnseignant) VALUES (seqGroupeCours.nextval, 30, '2015-05-15 00:00:00', '2015-05-01 00:00:00', 'O', 'i', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, 2);
+--transfertNotes IN ('O','N')
+INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idEnseignant) VALUES (seqGroupeCours.nextval, 30, '2015-05-15 00:00:00', '2015-05-01 00:00:00', 'i', 'O', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, 2);

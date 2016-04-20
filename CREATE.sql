@@ -45,7 +45,7 @@ CREATE TABLE Departement (
 								CONSTRAINT ck_Department_nom				CHECK (LENGTH(nomDepartement) >= 2),
 	nomFaculte 					VARCHAR2(45)
 								CONSTRAINT nn_Departement_nomFaculte		NOT NULL
-								CONSTRAINT ck_Departement_nomFaculte		CHECK(LENGTH(nomFaculte) >= 2)
+								CONSTRAINT ck_Departement_nomFaculte		CHECK (LENGTH(nomFaculte) >= 2)
 )
 /
 
@@ -219,7 +219,7 @@ CREATE TABLE BaremeNoteGroupeCours (
 								CONSTRAINT un_BaremeNoteGC_noteLettree		UNIQUE,
 	noteSeuil 					NUMBER 
 								CONSTRAINT nn_BaremeNoteGC_noteSeuil		NOT NULL
-								CONSTRAINT un_BaremeNoteGC_noteSeuil		UNIQUE,
+								CONSTRAINT un_BaremeNoteGC_noteSeuil		UNIQUE
 								CONSTRAINT ck_BaremeNoteGC_noteSeuil		CHECK (noteSeuil BETWEEN 0 AND 100)
 )
 /
@@ -272,15 +272,6 @@ CREATE TABLE StatutInscription (
 	libelleExplicatif 			VARCHAR2(100) 
 								CONSTRAINT nn_StatutInscription_libelle		NOT NULL
 )
-/
-
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (1, '##', 'Suspension de la notation en raison d\'une infraction de nature academique');
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (2, 'XE', 'Nombre d\'abandons autorises depasse');
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (3, 'XX', 'Abandon sans remboursement');
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (4, 'FX', 'Abandon pour defaut de paiement');
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (5, 'RX', 'Abandon suite a un prealable non satisfait');
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (6, 'UX', 'Annulation par l\'universite');
-INSERT INTO StatutInscription(idStatutInscription, typeInscription, libelleExplicatif) VALUES (7, 'W', 'Auditeur libre non credite');
 
 -- -----------------------------------------------------
 -- InscriptionGroupeCours:
@@ -326,7 +317,7 @@ CREATE TABLE ElementsEvaluation (
 	ponderation 				NUMBER,
 	saisieEvaluation 			TIMESTAMP 
 								CONSTRAINT nn_ElemEvaluation_saisie		NOT NULL,
-	transfertEvaluation			TIMESTAMP
+	transfertEvaluation		TIMESTAMP
 								CONSTRAINT nn_ElemEvaluation_transfert	NOT NULL,
 	diffusion 					CHAR(1)
 								CONSTRAINT ck_ElemEvaluation_diff    	CHECK (diffusion in ('O','N')),
@@ -355,7 +346,7 @@ CREATE TABLE StatsEvaluation (
 	idElementsEvaluation		NUMBER
 								CONSTRAINT fk_StatsEvaluation_idElemEva		REFERENCES ElementsEvaluation(idElementsEvaluation),
 	idGroupeCours				NUMBER
-								CONSTRAINT fk_StatsEvaluation_idGC			REFERENCES GroupeCours(idGroupeCOurs)
+								CONSTRAINT fk_StatsEvaluation_idGC			REFERENCES GroupeCours(idGroupeCours)
 )
 /
 
@@ -378,3 +369,4 @@ CREATE TABLE ResultatEvaluation (
 /
 COMMIT
 /
+

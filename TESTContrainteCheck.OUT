@@ -1,0 +1,283 @@
+SQL> set wrap off
+SQL> set pagesize 0
+SQL> set linesize 2000
+SQL> 
+SQL> --TEST DE CONTRAINTES CHECK
+SQL> 
+SQL> -- nomDepartement >= 2
+SQL> INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012015, 'D', 'UQAM');
+INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012015, 'D', 'UQAM')
+*
+ERROR at line 1:
+ORA-02290: violation de contraintes (JF391141.CK_DEPARTMENT_NOM) de verification 
+
+
+SQL> 
+SQL> -- nomFaculte >= 2
+SQL> INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012015, 'Département d`informatique de l`UQAM', 'U');
+INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012015, 'Département d`informatique de l`UQAM', 'U')
+*
+ERROR at line 1:
+ORA-02290: violation de contraintes (JF391141.CK_DEPARTEMENT_NOMFACULTE) de verification 
+
+
+SQL> 
+SQL> --un_Departement_identifiant	     UNIQUE
+SQL> INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012015, 'Département d`informatique de l`UQAM', 'UQAM');
+INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012015, 'Département d`informatique de l`UQAM', 'UQAM')
+*
+ERROR at line 1:
+ORA-00001: violation de contrainte unique (JF391141.UN_DEPARTEMENT_IDENTIFIANT) 
+
+
+SQL> 
+SQL> 
+SQL> -- REGEXP_LIKE (codePermanent, '[A-Z]{4}\d{8}')
+SQL> -- Seulement 3 lettres
+SQL> INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MAN002519207', '123456', 'Manori', 'Raymond', '5142270935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval);
+INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MAN002519207', '123456', 'Manori', 'Raymond', '5142270935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval)
+                                                                                                                                          *
+ERROR at line 1:
+ORA-00904: "IDDEPARTEMENT" : identificateur non valide 
+
+
+SQL> -- Plus que 4 lettres
+SQL> INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MANRRR519207', '123456', 'Manori', 'Raymond', '5142270935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval);
+INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MANRRR519207', '123456', 'Manori', 'Raymond', '5142270935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval)
+                                                                                                                                          *
+ERROR at line 1:
+ORA-00904: "IDDEPARTEMENT" : identificateur non valide 
+
+
+SQL> -- Plus que 8 chiffres
+SQL> INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MANR025990019207', '123456', 'Manori', 'Raymond', '5142270935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval);
+INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MANR025990019207', '123456', 'Manori', 'Raymond', '5142270935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval)
+                                                                                                                                          *
+ERROR at line 1:
+ORA-00904: "IDDEPARTEMENT" : identificateur non valide 
+
+
+SQL> 
+SQL> 
+SQL> -- REGEXP_LIKE(nip, '[0-9]{5}')
+SQL> -- Nip avec une lettre
+SQL> INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'TREL02519207', '1134k6', 'Tremblay', 'Lara', '5142298765', 'lara021@uqam.ca', 0, SYSDATE, seqDepartement.currval);
+INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'TREL02519207', '1134k6', 'Tremblay', 'Lara', '5142298765', 'lara021@uqam.ca', 0, SYSDATE, seqDepartement.currval)
+                                                                                                                                          *
+ERROR at line 1:
+ORA-00904: "IDDEPARTEMENT" : identificateur non valide 
+
+
+SQL> 
+SQL> -- LENGTH(nom) >= 2
+SQL> INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'TREL02519207', '113446', 'T', 'Lara', '5142298765', 'lara021@uqam.ca', 0, SYSDATE, seqDepartement.currval);
+INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'TREL02519207', '113446', 'T', 'Lara', '5142298765', 'lara021@uqam.ca', 0, SYSDATE, seqDepartement.currval)
+                                                                                                                                          *
+ERROR at line 1:
+ORA-00904: "IDDEPARTEMENT" : identificateur non valide 
+
+
+SQL> 
+SQL> -- LENGTH(prenom) >= 2
+SQL> INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MANR02519207', '123456', 'Manori', 'R', '5142270935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval);
+INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MANR02519207', '123456', 'Manori', 'R', '5142270935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval)
+                                                                                                                                          *
+ERROR at line 1:
+ORA-00904: "IDDEPARTEMENT" : identificateur non valide 
+
+
+SQL> 
+SQL> -- REGEXP_LIKE(telephone, '[0-9]{10}')
+SQL> -- Plus que 10 chiffres
+SQL> INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'TREL02519207', '113446', 'Tremblay', 'Lara', '51422987658888', 'lara021@uqam.ca', 0, SYSDATE, seqDepartement.currval);
+INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'TREL02519207', '113446', 'Tremblay', 'Lara', '51422987658888', 'lara021@uqam.ca', 0, SYSDATE, seqDepartement.currval)
+                                                                                                                                          *
+ERROR at line 1:
+ORA-00904: "IDDEPARTEMENT" : identificateur non valide 
+
+
+SQL> -- Moins que 10 chiffres
+SQL> INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MANR02519207', '123456', 'Manori', 'Raymond', '5142935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval);
+INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MANR02519207', '123456', 'Manori', 'Raymond', '5142935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval)
+                                                                                                                                          *
+ERROR at line 1:
+ORA-00904: "IDDEPARTEMENT" : identificateur non valide 
+
+
+SQL> 
+SQL> -- REGEXP_LIKE(courriel, '[^@!#$%?&*()+=:;",]+@[^@!#$%?&*()+=:;"S,]+')
+SQL> -- Pas de @
+SQL> INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MANR02519207', '123456', 'Manori', 'Raymond', '5142270935', 'raymondMuqam.ca', 0, SYSDATE, seqDepartement.currval);
+INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MANR02519207', '123456', 'Manori', 'Raymond', '5142270935', 'raymondMuqam.ca', 0, SYSDATE, seqDepartement.currval)
+                                                                                                                                          *
+ERROR at line 1:
+ORA-00904: "IDDEPARTEMENT" : identificateur non valide 
+
+
+SQL> 
+SQL> -- nbConnexionsInfructueuses BETWEEN 0 AND 5
+SQL> -- Plus que 5
+SQL> INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'TREL02519207', '113446', 'Tremblay', 'Lara', '5142298765', 'lara021@uqam.ca', 9, SYSDATE, seqDepartement.currval);
+INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'TREL02519207', '113446', 'Tremblay', 'Lara', '5142298765', 'lara021@uqam.ca', 9, SYSDATE, seqDepartement.currval)
+                                                                                                                                          *
+ERROR at line 1:
+ORA-00904: "IDDEPARTEMENT" : identificateur non valide 
+
+
+SQL> 
+SQL> 
+SQL> -- LENGTH(nom) >= 2
+SQL> INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'B', 'Jacques', '5149269880', 'jacquesBerger@uqam.ca');
+INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'B', 'Jacques', '5149269880', 'jacquesBerger@uqam.ca')
+*
+ERROR at line 1:
+ORA-02290: violation de contraintes (JF391141.CK_ENSEIGNANT_NOM) de verification 
+
+
+SQL> 
+SQL> -- LENGTH(prenom) >= 2
+SQL> INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'J', '5149269880', 'jacquesBerger@uqam.ca');
+INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'J', '5149269880', 'jacquesBerger@uqam.ca')
+*
+ERROR at line 1:
+ORA-02290: violation de contraintes (JF391141.CK_ENSEIGNANT_PRENOM) de verification 
+
+
+SQL> 
+SQL> -- REGEXP_LIKE(telephone, '[0-9]{10}')
+SQL> -- Plus que 10 chiffres
+SQL> INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'Jacques', '514926988888880', 'jacquesBerger@uqam.ca');
+INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'Jacques', '514926988888880', 'jacquesBerger@uqam.ca')
+                                                                                                                                                                          *
+ERROR at line 1:
+ORA-12899: valeur trop grande pour la colonne "JF391141"."ENSEIGNANT"."TELEPHONE" (reelle : 15, maximum : 10) 
+
+
+SQL> -- Moins que 10 chiffres
+SQL> INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'Jacques', '5269880', 'jacquesBerger@uqam.ca');
+INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'Jacques', '5269880', 'jacquesBerger@uqam.ca')
+*
+ERROR at line 1:
+ORA-02290: violation de contraintes (JF391141.CK_ENSEIGNANT_TELEPHONE) de verification 
+
+
+SQL> 
+SQL> -- REGEXP_LIKE(courriel, '[^@!#$%?&*()+=:;",]+@[^@!#$%?&*()+=:;"S,]+')
+SQL> -- Pas de @
+SQL> INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'Jacques', '5149269880', 'jacquesBergeruqam.ca');
+INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'Jacques', '5149269880', 'jacquesBergeruqam.ca')
+*
+ERROR at line 1:
+ORA-02290: violation de contraintes (JF391141.CK_ENSEIGNANT_COURRIEL) de verification 
+
+
+SQL> 
+SQL> -- dateFin > dateDebut
+SQL> INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-12-21 00:00:00', '2015-09-08 00:00:00', '2015-11-11 00:00:00');
+INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-12-21 00:00:00', '2015-09-08 00:00:00', '2015-11-11 00:00:00')
+                                                                                                                                 *
+ERROR at line 1:
+ORA-00984: un nom de colonne n'est pas autorise ici 
+
+
+SQL> INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-09-08 00:00:00', '2015-09-08 00:00:00', '2015-11-11 00:00:00');
+INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-09-08 00:00:00', '2015-09-08 00:00:00', '2015-11-11 00:00:00')
+                                                                                                                                 *
+ERROR at line 1:
+ORA-00984: un nom de colonne n'est pas autorise ici 
+
+
+SQL> 
+SQL> -- dateLimiteRemiseNotes > dateDebut
+SQL> INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-09-08 00:00:00');
+INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-09-08 00:00:00')
+                                                                                                                                 *
+ERROR at line 1:
+ORA-00984: un nom de colonne n'est pas autorise ici 
+
+
+SQL> 
+SQL> -- noteSeuil BETWEEN 0 AND 100
+SQL> -- Plus grand que 100
+SQL> INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'D', 788);
+INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'D', 788)
+*
+ERROR at line 1:
+ORA-02290: violation de contraintes (JF391141.CK_BAREMENOTEGC_NOTESEUIL) de verification 
+
+
+SQL> 
+SQL> -- noteSeuil BETWEEN 0 AND 100
+SQL> -- Plus grand que 100
+SQL> -- seqBaremeNoteFinale.nextval incrementé par un trigger
+SQL> INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (seqBaremeNoteFinale.nextval,'D+',102);
+INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (seqBaremeNoteFinale.nextval,'D+',102)
+                                                                                           *
+ERROR at line 1:
+ORA-02289: la sequence n'existe pas 
+
+
+SQL> 
+SQL> -- resultatMax BETWEEN 0 AND 100
+SQL> INSERT INTO ElementsEvaluatation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP2', 1, 809, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval);
+INSERT INTO ElementsEvaluatation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP2', 1, 809, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval)
+            *
+ERROR at line 1:
+ORA-00942: Table ou vue inexistante 
+
+
+SQL> --transfertEvaluation >= saisieEvaluation
+SQL> INSERT INTO ElementsEvaluatation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 INTRA', 1, 89, 30, '2015-10-08 00:00:00', '2015-10-06 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval);
+INSERT INTO ElementsEvaluatation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 INTRA', 1, 89, 30, '2015-10-08 00:00:00', '2015-10-06 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval)
+            *
+ERROR at line 1:
+ORA-00942: Table ou vue inexistante 
+
+
+SQL> --diffusion in ('O','N')
+SQL> INSERT INTO ElementsEvaluatation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP1', 1, 89, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'l', seqGroupeCours.currval, seqInscriptionGC.currval);
+INSERT INTO ElementsEvaluatation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP1', 1, 89, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'l', seqGroupeCours.currval, seqInscriptionGC.currval)
+            *
+ERROR at line 1:
+ORA-00942: Table ou vue inexistante 
+
+
+SQL> 
+SQL> 
+SQL> --moyenne BETWEEN 0 AND 100
+SQL> -- Plus grand que 100
+SQL> INSERT INTO StatsEvaluation (idStatsEvaluation, moyenne, ecartType, idElementsEvaluation, idGroupeCours) VALUES (seqStatsEvaluation.nextval, 300, 9, seqElementsEvaluation.currval ,seqElementsEvaluation.currval);
+INSERT INTO StatsEvaluation (idStatsEvaluation, moyenne, ecartType, idElementsEvaluation, idGroupeCours) VALUES (seqStatsEvaluation.nextval, 300, 9, seqElementsEvaluation.currval ,seqElementsEvaluation.currval)
+*
+ERROR at line 1:
+ORA-08002: sequence SEQELEMENTSEVALUATION.CURRVAL pas encore definie dans cette session 
+
+
+SQL> 
+SQL> --un_Programme_codeNum			     UNIQUE
+SQL> INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUE (idProgramme.nextval, '7316' , 'Génie Logiciel', 1, seqDepartement.currval);
+INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUE (idProgramme.nextval, '7316' , 'Génie Logiciel', 1, seqDepartement.currval)
+                                                                                                                 *
+ERROR at line 1:
+ORA-00926: mot-cle VALUES absent 
+
+
+SQL> 
+SQL> --diffusionNotesFinales IN ('O','N')
+SQL> INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idEnseignant) VALUES (seqGroupeCours.nextval, 30, '2015-05-15 00:00:00', '2015-05-01 00:00:00', 'O', 'i', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, 2);
+INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idEnseignant) VALUES (seqGroupeCours.nextval, 30, '2015-05-15 00:00:00', '2015-05-01 00:00:00', 'O', 'i', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, 2)
+*
+ERROR at line 1:
+ORA-08002: sequence SEQCOURS.CURRVAL pas encore definie dans cette session 
+
+
+SQL> --transfertNotes IN ('O','N')
+SQL> INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idEnseignant) VALUES (seqGroupeCours.nextval, 30, '2015-05-15 00:00:00', '2015-05-01 00:00:00', 'i', 'O', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, 2);
+INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idEnseignant) VALUES (seqGroupeCours.nextval, 30, '2015-05-15 00:00:00', '2015-05-01 00:00:00', 'i', 'O', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, 2)
+*
+ERROR at line 1:
+ORA-08002: sequence SEQCOURS.CURRVAL pas encore definie dans cette session 
+
+
+SQL> 
+SQL> set echo off
