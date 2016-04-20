@@ -40,7 +40,7 @@ INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, co
 INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval, 'hg9912423122', '12344456', 'Privat', 'Jean', '5142668929', 'privatJean@uqam.ca');
 INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'Jacques', '5149269880', 'jacquesBerger@uqam.ca');
 
-INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-11-11 00:00:00');
+INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Automne2015', '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-11-11 00:00:00');
 
 INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF3105', 'Structures de données et algorithmes', 'Graphes, arbres, tables..',seqDepartement.currval);
 INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF4170', 'Architecture des ordinateurs', 'Mémoires: architecture,fonctionnement,types..',seqDepartement.currval);
