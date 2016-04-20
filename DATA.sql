@@ -2,31 +2,31 @@ SET ECHO ON
 SET SERVEROUTPUT ON
 
 --Recommencer a neuf
-TRUNCATE TABLE Departement;
+DELETE TABLE Departement;
 
-TRUNCATE TABLE Programme;
+DELETE TABLE Programme;
 
-TRUNCATE TABLE Etudiant;
+DELETE TABLE Etudiant;
 
-TRUNCATE TABLE EmployeDepartement;
+DELETE TABLE EmployeDepartement;
 
-TRUNCATE TABLE Enseignant;
+DELETE TABLE Enseignant;
 
-TRUNCATE TABLE SessionCours;
+DELETE TABLE SessionCours;
 
-TRUNCATE TABLE Cours;
+DELETE TABLE Cours;
 
-TRUNCATE TABLE BaremeNoteGroupeCours;
+DELETE TABLE BaremeNoteGroupeCours;
 
-TRUNCATE TABLE GroupeCours;
+DELETE TABLE GroupeCours;
 
-TRUNCATE TABLE InscriptionGroupeCours;
+DELETE TABLE InscriptionGroupeCours;
 
-TRUNCATE TABLE ElementsEvaluation;
+DELETE TABLE ElementsEvaluation;
 
-TRUNCATE TABLE StatsEvaluation;
+DELETE TABLE StatsEvaluation;
 
-TRUNCATE TABLE ResultatEvaluation;
+DELETE TABLE ResultatEvaluation;
 
 
 INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012015, 'Département d`informatique de l`UQAM', 'UQAM');
