@@ -1,17 +1,11 @@
-SQL> 
-SQL> set serveroutput on
-SQL> set echo on
 SQL> set wrap off
 SQL> set pagesize 0
 SQL> set linesize 2000
 SQL> 
 SQL> --Recommencer a neuf
 SQL> TRUNCATE TABLE Departement;
-TRUNCATE TABLE Departement
-               *
-ERROR at line 1:
-ORA-02266: les cles primaires/uniques de la table sont referencees par des cles etrangeres 
 
+Table truncated.
 
 SQL> 
 SQL> TRUNCATE TABLE Programme;
@@ -30,19 +24,13 @@ Table truncated.
 
 SQL> 
 SQL> TRUNCATE TABLE Enseignant;
-TRUNCATE TABLE Enseignant
-               *
-ERROR at line 1:
-ORA-02266: les cles primaires/uniques de la table sont referencees par des cles etrangeres 
 
+Table truncated.
 
 SQL> 
 SQL> TRUNCATE TABLE SessionCours;
-TRUNCATE TABLE SessionCours
-               *
-ERROR at line 1:
-ORA-02266: les cles primaires/uniques de la table sont referencees par des cles etrangeres 
 
+Table truncated.
 
 SQL> 
 SQL> TRUNCATE TABLE Cours;
@@ -81,68 +69,50 @@ Table truncated.
 
 SQL> 
 SQL> 
-SQL> INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012015, 'Département d`informatique de l`UQAM', 'UQAM');
-INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012015, 'Département d`informatique de l`UQAM', 'UQAM')
-*
-ERROR at line 1:
-ORA-00001: violation de contrainte unique (JF391141.UN_DEPARTEMENT_IDENTIFIANT) 
+SQL> INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012439, 'Département d`informatique de l`UQAM', 'UQAM');
 
+1 row created.
 
 SQL> 
-SQL> INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MANR02519207', '123456', 'Manori', 'Raymond', '5142270935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval);
-INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'MANR02519207', '123456', 'Manori', 'Raymond', '5142270935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval)
-                                                                                                                                          *
+SQL> INSERT INTO Etudiant(idProgramme, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idProgramme)VALUES(seqEtudiant.nextval, 'MANR02519207', '123456', 'Manori', 'Raymond', '5142270935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval);
+INSERT INTO Etudiant(idProgramme, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idProgramme)VALUES(seqEtudiant.nextval, 'MANR02519207', '123456', 'Manori', 'Raymond', '5142270935', 'raymondM@uqam.ca', 0, SYSDATE, seqDepartement.currval)
+                     *
 ERROR at line 1:
-ORA-00904: "IDDEPARTEMENT" : identificateur non valide 
+ORA-00957: nom de colonne en double 
 
 
-SQL> INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'TREL02519207', '113446', 'Tremblay', 'Lara', '5142298765', 'lara021@uqam.ca', 0, SYSDATE, seqDepartement.currval);
-INSERT INTO Etudiant(idEtudiant, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idDepartement)VALUES(seqEtudiant.nextval, 'TREL02519207', '113446', 'Tremblay', 'Lara', '5142298765', 'lara021@uqam.ca', 0, SYSDATE, seqDepartement.currval)
-                                                                                                                                          *
+SQL> INSERT INTO Etudiant(idProgramme, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idProgramme)VALUES(seqEtudiant.nextval, 'TREL02519207', '113446', 'Tremblay', 'Lara', '5142298765', 'lara021@uqam.ca', 0, SYSDATE, seqDepartement.currval);
+INSERT INTO Etudiant(idProgramme, codePermanent,  nip, nom, prenom, telephone, courriel, nbConnexionsInfructueuses, dateDerniereConnexion, idProgramme)VALUES(seqEtudiant.nextval, 'TREL02519207', '113446', 'Tremblay', 'Lara', '5142298765', 'lara021@uqam.ca', 0, SYSDATE, seqDepartement.currval)
+                     *
 ERROR at line 1:
-ORA-00904: "IDDEPARTEMENT" : identificateur non valide 
+ORA-00957: nom de colonne en double 
 
 
 SQL> 
 SQL> --INSERT INTO EmployeDepartement(idEmploye, codeMS,  motDePasse, nom, prenom, telephone, courriel, idDepartement)VALUES(seqEmployeDepartement.nextval, 'hg9912423111', '00123456', 'Chieze', 'Emmanuel', '5149264532', 'chiezeEmmanuel@uqam.ca', seqDepartement.currval);
 SQL> --INSERT INTO EmployeDepartement(idEmploye, codeMS,  motDePasse, nom, prenom, telephone, courriel, idDepartement)VALUES(seqEmployeDepartement.nextval, 'ml9912098911', '00120996', 'Berger', 'Jacques', '5149269880', 'jacquesBerger@uqam.ca', seqDepartement.currval);
 SQL> 
-SQL> INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval, 'hg9912423122', '12344456', 'Privat', 'Jean', '5142668929', 'privatJean@uqam.ca');
-INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval, 'hg9912423122', '12344456', 'Privat', 'Jean', '5142668929', 'privatJean@uqam.ca')
-*
-ERROR at line 1:
-ORA-00001: violation de contrainte unique (JF391141.UN_ENSEIGNANT_CODEMS) 
+SQL> INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval, 'hg9912423227', '12344456', 'Privat', 'Jean', '5142668929', 'privatJean@uqam.ca');
 
+1 row created.
 
-SQL> INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'Jacques', '5149269880', 'jacquesBerger@uqam.ca');
-INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912098911', '00120996', 'Berger', 'Jacques', '5149269880', 'jacquesBerger@uqam.ca')
-*
-ERROR at line 1:
-ORA-00001: violation de contrainte unique (JF391141.UN_ENSEIGNANT_CODEMS) 
+SQL> INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone, courriel) VALUES(seqEnseignant.nextval,'ml9912022917', '00120996', 'Berger', 'Jacques', '5149269880', 'jacquesBerger@uqam.ca');
 
+1 row created.
 
 SQL> 
-SQL> INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Automne2015', '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-11-11 00:00:00');
-INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Automne2015', '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-11-11 00:00:00')
-*
-ERROR at line 1:
-ORA-00001: violation de contrainte unique (JF391141.UN_SESSIONCOURS_NOMSESSION) 
+SQL> INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Automne2012', '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-11-11 00:00:00');
 
+1 row created.
 
 SQL> 
-SQL> INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF3105', 'Structures de données et algorithmes', 'Graphes, arbres, tables..',seqDepartement.currval);
-INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF3105', 'Structures de données et algorithmes', 'Graphes, arbres, tables..',seqDepartement.currval)
-                                       *
-ERROR at line 1:
-ORA-00904: "TITRE" : identificateur non valide 
+SQL> INSERT INTO Cours(idCours, sigleCours, titreCours, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF3105', 'Structures de données et algorithmes', 'Graphes, arbres, tables..',seqDepartement.currval);
 
+1 row created.
 
-SQL> INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF4170', 'Architecture des ordinateurs', 'Mémoires: architecture,fonctionnement,types..',seqDepartement.currval);
-INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF4170', 'Architecture des ordinateurs', 'Mémoires: architecture,fonctionnement,types..',seqDepartement.currval)
-                                       *
-ERROR at line 1:
-ORA-00904: "TITRE" : identificateur non valide 
+SQL> INSERT INTO Cours(idCours, sigleCours, titreCours, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF4170', 'Architecture des ordinateurs', 'Memoires: architecture,fonction...',seqDepartement.currval);
 
+1 row created.
 
 SQL> 
 SQL> --INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'A+', 95);
@@ -160,32 +130,29 @@ SQL> --INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil)
 SQL> 
 SQL> INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idEnseignant) VALUES (seqGroupeCours.nextval, 20, '2015-05-15 00:00:00', '2015-05-01 00:00:00', 'O', 'O', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, 1);
 INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idEnseignant) VALUES (seqGroupeCours.nextval, 20, '2015-05-15 00:00:00', '2015-05-01 00:00:00', 'O', 'O', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, 1)
-*
+                                                                                                                                                                                                                                                                                                                             *
 ERROR at line 1:
-ORA-08002: sequence SEQCOURS.CURRVAL pas encore definie dans cette session 
+ORA-08002: sequence SEQBAREMENOTEGC.CURRVAL pas encore definie dans cette session 
 
 
 SQL> INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idEnseignant) VALUES (seqGroupeCours.nextval, 30, '2015-05-15 00:00:00', '2015-05-01 00:00:00', 'O', 'O', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, 2);
 INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idEnseignant) VALUES (seqGroupeCours.nextval, 30, '2015-05-15 00:00:00', '2015-05-01 00:00:00', 'O', 'O', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, 2)
-*
+                                                                                                                                                                                                                                                                                                                             *
 ERROR at line 1:
-ORA-08002: sequence SEQCOURS.CURRVAL pas encore definie dans cette session 
+ORA-08002: sequence SEQBAREMENOTEGC.CURRVAL pas encore definie dans cette session 
 
 
 SQL> 
-SQL> INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUES (seqProgramme.nextval, '7316' , 'Génie Logiciel', 1, seqDepartement.currval);
-INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUES (seqProgramme.nextval, '7316' , 'Génie Logiciel', 1, seqDepartement.currval)
-                                                                                                                 *
-ERROR at line 1:
-ORA-00947: nombre de valeurs insuffisant 
+SQL> INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUES (seqProgramme.nextval, '7316' , 'Génie Logiciel', 1, 7316 ,seqDepartement.currval);
 
+1 row created.
 
 SQL> 
 SQL> --INSERT INTO InscriptionGroupeCours(idInscriptionGC, ordre, noteNumerique, noteLettree, idProgramme, idEtudiant, idStatutInscription, idGroupeCours) VALUES (seqInscriptionGC.nextval, 1, 95, 'A+', seqProgramme.currval, seqEtudiant.currval, seqStatutInscription.currval, seqGroupeCours.currval);
 SQL> 
 SQL> INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP1', 1, 89, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval);
 INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP1', 1, 89, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval)
-*
+                                                                                                                                                                                                                                                                                                                                              *
 ERROR at line 1:
 ORA-08002: sequence SEQGROUPECOURS.CURRVAL pas encore definie dans cette session 
 
