@@ -1,0 +1,92 @@
+SQL> set wrap off
+SQL> set pagesize 0
+SQL> set linesize 2000
+SQL> 
+SQL> 
+SQL> --TEST DE CONTRAINTES DE TRIGGER INCRÉMENTATION
+SQL> -- Incrémentation de idDepartement
+SQL> INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012019, 'Département de sociologie de l`UQAM', 'UQAM');
+
+1 row created.
+
+SQL> SELECT * FROM Departement;
+            3  7316012439 D??partement d`informatique de l`UQAM         UQAM                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+            9  7316012015 D??partement d`informatique de l`UQAM         UQAM                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+           11  7316012019 D??partement de sociologie de l`UQAM          UQAM                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
+SQL> 
+SQL> -- Incrémentation de idEtudiant
+SQL> SELECT * FROM Etudiant;
+         3 MANR02519207 123456 Manori                         Raymond                        5142270935 raymondM@uqam.ca                                                      0 16-04-20 10:50:58,000000                                                            323                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+         5 TREL02519207 113446 Tremblay                       Lara                           5142298765 lara021@uqam.ca                                                       0 16-04-20 10:50:58,000000                                                            323                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+
+SQL> 
+SQL> -- Incrémentation de idEnseignant
+SQL> SELECT * FROM Enseignant
+  2  
+SQL> -- Incrémentation de idSessionCours
+SQL> INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Hiver2015', '2015-01-08 00:00:00', '2015-04-21 00:00:00', '2015-03-11 00:00:00');
+
+1 row created.
+
+SQL> SELECT * FROM SessionCours
+  2  
+SQL> -- Incrémentation de idCours
+SQL> SELECT * FROM Cours
+  2  
+SQL> -- Incrémentation de idBaremeNoteGC
+SQL> SELECT * FROM BaremeNoteGroupeCours
+  2  
+SQL> -- Incrémentation de idGroupeCours
+SQL> SELECT * FROM GroupeCours
+  2  
+SQL> -- Incrémentation de idStatutInscription
+SQL> SELECT * FROM StatutInscription
+  2  
+SQL> -- Incrémentation de idElementsEvaluation
+SQL> INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion) VALUES (seqElementsEvaluation.nextval, 'INF3105 INTRA', 1, 92, 30, '2015-10-20 00:00:00', '2015-10-25 00:00:00', '2015-11-08 00:00:00');
+INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion) VALUES (seqElementsEvaluation.nextval, 'INF3105 INTRA', 1, 92, 30, '2015-10-20 00:00:00', '2015-10-25 00:00:00', '2015-11-08 00:00:00')
+                                                                                                                                                                                                                                                                                    *
+ERROR at line 1:
+ORA-12899: valeur trop grande pour la colonne "JF391141"."ELEMENTSEVALUATION"."DIFFUSION" (reelle : 19, maximum : 1) 
+
+
+SQL> SELECT * FROM ElementsEvaluation
+  2  
+SQL> -- Incrémentation de idProgramme
+SQL> INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUES (idProgramme.nextval, '7008' , 'Biochimie', 1, seqDepartement.currval);
+INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUES (idProgramme.nextval, '7008' , 'Biochimie', 1, seqDepartement.currval)
+                                                                                                                 *
+ERROR at line 1:
+ORA-00947: nombre de valeurs insuffisant 
+
+
+SQL> SELECT * FROM Programme
+  2  
+SQL> ----------------------------------------------------------------
+SQL> -- Creation du trigger pour interdire les modifications
+SQL> -- de la table BaremeConversionNoteFinale
+SQL> ----------------------------------------------------------------
+SQL> INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (idBaremeNoteGC.nextval, 'R', 0);
+INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (idBaremeNoteGC.nextval, 'R', 0)
+                                                                                           *
+ERROR at line 1:
+ORA-02289: la sequence n'existe pas 
+
+
+SQL> 
+SQL> --Tester la PROCEDURE genererNotesFinales
+SQL> EXECUTE genererNotesFinales(seqGroupeCours.currval);
+BEGIN genererNotesFinales(seqGroupeCours.currval); END;
+
+      *
+ERROR at line 1:
+ORA-06550: Ligne 1, colonne 7 : 
+PLS-00201: identifier 'GENERERNOTESFINALES' must be declared 
+ORA-06550: Ligne 1, colonne 7 : 
+PL/SQL: Statement ignored 
+
+
+SQL> 
+SQL> 
+SQL> set echo off
