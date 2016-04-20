@@ -55,7 +55,7 @@ INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme
 
 --INSERT INTO InscriptionGroupeCours(idInscriptionGC, ordre, noteNumerique, noteLettree, idProgramme, idEtudiant, idStatutInscription, idGroupeCours) VALUES (seqInscriptionGC.nextval, 1, 95, 'A+', seqProgramme.currval, seqEtudiant.currval, seqStatutInscription.currval, seqGroupeCours.currval);
 
-INSERT INTO ElementsEvaluatation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP1', 1, 89, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval);
+INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP1', 1, 89, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval);
 
 COMMIT;
 
