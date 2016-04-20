@@ -42,8 +42,8 @@ INSERT INTO Enseignant(idEnseignant, codeMS,  motDePasse, nom, prenom, telephone
 
 INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Automne2015', '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-11-11 00:00:00');
 
-INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF3105', 'Structures de données et algorithmes', 'Graphes, arbres, tables..',seqDepartement.currval);
-INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF4170', 'Architecture des ordinateurs', 'Mémoires: architecture,fonctionnement,types..',seqDepartement.currval);
+INSERT INTO Cours(idCours, sigleCours, titreCours, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF3105', 'Structures de données et algorithmes', 'Graphes, arbres, tables..',seqDepartement.currval);
+INSERT INTO Cours(idCours, sigleCours, titreCours, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF4170', 'Architecture des ordinateurs', 'Mémoires: architecture,fonctionnement,types..',seqDepartement.currval);
 
 --INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'A+', 95);
 --INSERT INTO BaremeNoteGroupeCours(idBaremeNoteGC, noteLettree, noteSeuil) VALUES (seqBaremeNoteGC.nextval, 'A', 90);
@@ -61,7 +61,7 @@ INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) V
 INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idEnseignant) VALUES (seqGroupeCours.nextval, 20, '2015-05-15 00:00:00', '2015-05-01 00:00:00', 'O', 'O', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, 1);
 INSERT INTO GroupeCours(idGroupeCours, numeroGroupe, dateConfirmation, dateApprobation, transfertNotes, diffusionNotesFinales, idCours, idSessionCours, idBaremeNoteGC, idEnseignant) VALUES (seqGroupeCours.nextval, 30, '2015-05-15 00:00:00', '2015-05-01 00:00:00', 'O', 'O', seqCours.currval, seqSessionCours.currval, seqBaremeNoteGC.currval, 2);
 
-INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUES (seqProgramme.nextval, '7316' , 'Génie Logiciel', 1, seqDepartement.currval);
+INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUES (seqProgramme.nextval, '7316' , 'Génie Logiciel',  'Informatique', 1, seqDepartement.currval);
 
 --INSERT INTO InscriptionGroupeCours(idInscriptionGC, ordre, noteNumerique, noteLettree, idProgramme, idEtudiant, idStatutInscription, idGroupeCours) VALUES (seqInscriptionGC.nextval, 1, 95, 'A+', seqProgramme.currval, seqEtudiant.currval, seqStatutInscription.currval, seqGroupeCours.currval);
 
