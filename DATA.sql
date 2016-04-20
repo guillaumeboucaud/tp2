@@ -1,6 +1,3 @@
-SET ECHO ON
-SET SERVEROUTPUT ON
-
 //On vide puis on recreer quelques donnees 
 
 TRUNCATE TABLE BaremeConversionNoteFinale;
@@ -15,7 +12,7 @@ TRUNCATE TABLE BaremeNoteGroupeCours;
 TRUNCATE TABLE GroupeCours;
 TRUNCATE TABLE StatutInscription;
 TRUNCATE TABLE InscriptionGroupeCours;
-TRUNCATE TABLE ElementsEvaluatation;
+TRUNCATE TABLE ElementsEvaluation;
 TRUNCATE TABLE StatsEvaluation;
 TRUNCATE TABLE ResultatEvaluation;
 
@@ -58,4 +55,3 @@ INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme
 INSERT INTO ElementsEvaluation(idElementsEvaluation, titreEvaluation, ordreApparition, resultatMax, ponderation, saisieEvaluation, transfertEvaluation, diffusion, idGroupeCours, idIncriptionGC) VALUES (seqElementsEvaluation.nextval, 'INF3105 TP1', 1, 89, 15, '2015-10-08 00:00:00', '2015-10-08 00:00:00', 'O', seqGroupeCours.currval, seqInscriptionGC.currval);
 
 COMMIT;
-
