@@ -3,18 +3,17 @@
 -- -----------------------------------------------------
 CREATE TABLE BaremeConversionNoteFinale (
 	idBaremeNoteFinale			NUMBER
-								CONSTRAINT nn_BareNoteFinale_id				NOT NULL
-								CONSTRAINT pk_BaremeNoteFinale				PRIMARY KEY,
+								CONSTRAINT nn_BareNoteFinale_id NOT NULL
+								CONSTRAINT pk_BaremeNoteFinale PRIMARY KEY,
 	noteLettree					VARCHAR2(2) 
-								CONSTRAINT nn_BaremeNoteFinale_noteLettree	NOT NULL
-								CONSTRAINT un_BaremeNoteFinale_noteLettree	UNIQUE,
+								CONSTRAINT nn_BaremeNoteFinale_noteL NOT NULL
+								CONSTRAINT un_BaremeNoteFinale_noteL UNIQUE,
 	noteSeuil 					NUMBER 
-								CONSTRAINT nn_BaremeNoteFinale_noteSeuil	NOT NULL
-								CONSTRAINT un_BaremeNoteFinale_noteSeuil	UNIQUE
-								CONSTRAINT ck_BaremeNoteFinale_noteSeuil	CHECK (noteSeuil BETWEEN 0 AND 100)
+								CONSTRAINT nn_BaremeNoteFinale_noteS NOT NULL
+								CONSTRAINT un_BaremeNoteFinale_noteS UNIQUE
+								CONSTRAINT ck_BaremeNoteFinale_noteS CHECK (noteSeuil BETWEEN 0 AND 100)
 )
 /
-
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (1, 'A+', 95);
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (2, 'A', 90);
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (3, 'A-', 85);
@@ -27,11 +26,10 @@ INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeui
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (10, 'D+', 62);
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (11, 'D', 60);
 INSERT INTO BaremeConversionNoteFinale(idBaremeNoteFinale, noteLettree, noteSeuil) VALUES (12, 'E', 0);
-/
-REVOKE ALL PRIVILEGES TO PUBLIC;
-/
-GRANT SELECT TO PUBLIC;
-/
+
+REVOKE ALL PRIVILEGES ON BaremeConversionNoteFinale FROM PUBLIC;
+GRANT SELECT ON BaremeConversionNoteFinale TO PUBLIC;
+
 -- -----------------------------------------------------
 -- Departement:
 -- -----------------------------------------------------
@@ -40,14 +38,14 @@ CREATE TABLE Departement (
 								CONSTRAINT nn_Departement_id				NOT NULL
 								CONSTRAINT pk_Departement_id				PRIMARY KEY,
 	identifiant	 				NUMBER(10)
-								CONSTRAINT un_Departement_identifiant		UNIQUE,
+								CONSTRAINT un_Departement_identifiant		UNIQUE
 								CONSTRAINT nn_Departement_identifiant		NOT NULL,
 	nomDepartement 				VARCHAR2(45) 
 								CONSTRAINT nn_Departement_nom				NOT NULL
-								CONSTRAINT ck_Department_nom				CHECK (LENGTH(nomDepartment) >= 2),
+								CONSTRAINT ck_Department_nom				CHECK (LENGTH(nomDepartement) >= 2),
 	nomFaculte 					VARCHAR2(45)
 								CONSTRAINT nn_Departement_nomFaculte		NOT NULL
-								CONSTRAINT ck_Departement_nomFaculte		CHECK(LENGTH(nomFaculte) >= 2),
+								CONSTRAINT ck_Departement_nomFaculte		CHECK(LENGTH(nomFaculte) >= 2)
 )
 /
 
@@ -199,10 +197,10 @@ CREATE TABLE Cours(
 								CONSTRAINT un_Cours_sigle			UNIQUE,
 	titreCours 					VARCHAR(45) 
 								CONSTRAINT nn_Cours_titre			NOT NULL
-								CONSTRAINT ck_Cours_titre			CHECK (LENGTH(titre >= 2)),
+								CONSTRAINT ck_Cours_titre			CHECK (LENGTH(titreCours) >= 2),
 	descriptionCours 			VARCHAR(45) 
 								CONSTRAINT nn_Cours_description		NOT NULL
-								CONSTRAINT ck_Cours_description		CHECK (LENGTH(description >= 2)),
+								CONSTRAINT ck_Cours_description		CHECK (LENGTH(descriptionCours) >= 2),
 	idDepartement				NUMBER
 								CONSTRAINT nn_Cours_idDepartemnt	NOT NULL
 								CONSTRAINT fk_Cours_idDepartement	REFERENCES Departement(idDepartement)
@@ -237,9 +235,9 @@ CREATE TABLE GroupeCours (
 	numeroGroupe 				NUMBER(2) 
 								CONSTRAINT nn_GroupeCours_numeroGroupe		NOT NULL,
 	dateConfirmation 			TIMESTAMP
-								CONSTRAINT nn_GroupeCours_dateConfirmation	NOT NULL,
+								CONSTRAINT nn_GroupeCours_dateConfirm	NOT NULL,
 	dateApprobation 			TIMESTAMP
-								CONSTRAINT nn_GroupeCours_dateApprobation	NOT NULL,
+								CONSTRAINT nn_GroupeCours_dateApprob	NOT NULL,
 	transfertNotes 				CHAR(1) 
 								CONSTRAINT nn_GroupeCours_transfertNotes	NOT NULL
 								CONSTRAINT ck_GroupeCours_transfertNotes	CHECK (transfertNotes IN ('O','N')),
@@ -254,7 +252,7 @@ CREATE TABLE GroupeCours (
 								CONSTRAINT fk_GroupeCours_idSessionCours	REFERENCES SessionCours(idSessionCours),
 	idBaremeNoteGC				NUMBER
 								CONSTRAINT n_GroupeCours_idBaremeNoteGC		NULL
-								CONSTRAINT fk_GroupeCours_idBaremeNoteGC	REFERENCES BaremeNoteGC(idBaremeNoteGC),
+								CONSTRAINT fk_GroupeCours_idBaremeNoteGC	REFERENCES BaremeNoteGroupeCours(idBaremeNoteGC),
 	idEnseignant				NUMBER
 								CONSTRAINT nn_GroupeCours_idEnseignant		NOT NULL
 								CONSTRAINT fk_GroupeCours_idEnseignant		REFERENCES Enseignant(idEnseignant)
@@ -317,28 +315,28 @@ CREATE TABLE InscriptionGroupeCours (
 -- -----------------------------------------------------
 CREATE TABLE ElementsEvaluation (
 	idElementsEvaluation		NUMBER
-								CONSTRAINT nn_ElementsEvaluation_id			NOT NULL
-								CONSTRAINT pk_ElementsEvaluation			PRIMARY KEY,
+								CONSTRAINT nn_ElemEvaluation_id			NOT NULL
+								CONSTRAINT pk_ElemEvaluation			PRIMARY KEY,
 	titreEvaluation				VARCHAR2(45) 
-								CONSTRAINT nn_ElementsEvaluation_titre		NOT NULL,
+								CONSTRAINT nn_ElemEvaluation_titre		NOT NULL,
 	ordreApparition 			NUMBER 
-								CONSTRAINT nn_ElementsEvaluation_ordre		NOT NULL,
+								CONSTRAINT nn_ElemEvaluation_ordre		NOT NULL,
 	resultatMax 				NUMBER
-								CONSTRAINT ck_ElementsEvaluation_resMax		CHECK (resultatMax BETWEEN 0 AND 100),
+								CONSTRAINT ck_ElemEvaluation_resMax		CHECK (resultatMax BETWEEN 0 AND 100),
 	ponderation 				NUMBER,
 	saisieEvaluation 			TIMESTAMP 
-								CONSTRAINT nn_ElementsEvaluation_saisie		NOT NULL,
+								CONSTRAINT nn_ElemEvaluation_saisie		NOT NULL,
 	transfertEvaluation			TIMESTAMP
-								CONSTRAINT nn_ElementsEvaluation_transfert	NOT NULL,
+								CONSTRAINT nn_ElemEvaluation_transfert	NOT NULL,
 	diffusion 					CHAR(1)
-								CONSTRAINT ck_ElementsEvaluation_diff    	CHECK (diffusion in ('O','N')),
+								CONSTRAINT ck_ElemEvaluation_diff    	CHECK (diffusion in ('O','N')),
 	idGroupeCours				NUMBER
-								CONSTRAINT nn_ElementsEvaluation_idGC		NOT NULL
-								CONSTRAINT fk_ElelementsEvaluation_idGC		REFERENCES GroupeCours(idGroupeCours),
+								CONSTRAINT nn_ElemEvaluation_idGC		NOT NULL
+								CONSTRAINT fk_ElemEvaluation_idGC		REFERENCES GroupeCours(idGroupeCours),
 	idIncriptionGC				NUMBER
-								CONSTRAINT nn_ElementsEvaluation_idIGC		NOT NULL
-								CONSTRAINT fk_ElelementsEvaluation_idIGC	REFERENCES InscriptionGroupeCours(idInscriptionGC),
-	CONSTRAINT ck_ElementsEvaluation_transfert	CHECK (transfertEvaluation >= saisieEvaluation)
+								CONSTRAINT nn_ElemEvaluation_idIGC		NOT NULL
+								CONSTRAINT fk_ElemEvaluation_idIGC	REFERENCES InscriptionGroupeCours(idInscriptionGC),
+	CONSTRAINT ck_ElemEvaluation_transfert	CHECK (transfertEvaluation >= saisieEvaluation)
 )
 /
 
@@ -376,3 +374,7 @@ CREATE TABLE ResultatEvaluation (
 								CONSTRAINT fk_ResEva_idInscriptionGC		REFERENCES InscriptionGroupeCours(idInscriptionGC),
 	idElementsEvaluation		NUMBER
 								CONSTRAINT fk_ResEva_idElemeEva				REFERENCES ElementsEvaluation(idElementsEvaluation)
+)
+/
+COMMIT
+/
