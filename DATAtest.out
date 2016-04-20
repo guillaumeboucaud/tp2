@@ -1,6 +1,85 @@
+SQL> 
+SQL> set serveroutput on
+SQL> set echo on
 SQL> set wrap off
 SQL> set pagesize 0
 SQL> set linesize 2000
+SQL> 
+SQL> --Recommencer a neuf
+SQL> TRUNCATE TABLE Departement;
+TRUNCATE TABLE Departement
+               *
+ERROR at line 1:
+ORA-02266: les cles primaires/uniques de la table sont referencees par des cles etrangeres 
+
+
+SQL> 
+SQL> TRUNCATE TABLE Programme;
+
+Table truncated.
+
+SQL> 
+SQL> TRUNCATE TABLE Etudiant;
+
+Table truncated.
+
+SQL> 
+SQL> TRUNCATE TABLE EmployeDepartement;
+
+Table truncated.
+
+SQL> 
+SQL> TRUNCATE TABLE Enseignant;
+TRUNCATE TABLE Enseignant
+               *
+ERROR at line 1:
+ORA-02266: les cles primaires/uniques de la table sont referencees par des cles etrangeres 
+
+
+SQL> 
+SQL> TRUNCATE TABLE SessionCours;
+TRUNCATE TABLE SessionCours
+               *
+ERROR at line 1:
+ORA-02266: les cles primaires/uniques de la table sont referencees par des cles etrangeres 
+
+
+SQL> 
+SQL> TRUNCATE TABLE Cours;
+
+Table truncated.
+
+SQL> 
+SQL> TRUNCATE TABLE BaremeNoteGroupeCours;
+
+Table truncated.
+
+SQL> 
+SQL> TRUNCATE TABLE GroupeCours;
+
+Table truncated.
+
+SQL> 
+SQL> TRUNCATE TABLE InscriptionGroupeCours;
+
+Table truncated.
+
+SQL> 
+SQL> TRUNCATE TABLE ElementsEvaluation;
+
+Table truncated.
+
+SQL> 
+SQL> TRUNCATE TABLE StatsEvaluation;
+
+Table truncated.
+
+SQL> 
+SQL> TRUNCATE TABLE ResultatEvaluation;
+
+Table truncated.
+
+SQL> 
 SQL> 
 SQL> INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012015, 'Département d`informatique de l`UQAM', 'UQAM');
 INSERT INTO Departement(idDepartement, identifiant, nomDepartement, nomFaculte) VALUES (seqDepartement.nextval, 7316012015, 'Département d`informatique de l`UQAM', 'UQAM')
@@ -43,26 +122,26 @@ ORA-00001: violation de contrainte unique (JF391141.UN_ENSEIGNANT_CODEMS)
 
 
 SQL> 
-SQL> INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-11-11 00:00:00');
-INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, Automne2015, '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-11-11 00:00:00')
-                                                                                                                                 *
+SQL> INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Automne2015', '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-11-11 00:00:00');
+INSERT INTO SessionCours(idSessionCours, nomSession, dateDebut, dateFin, dateLimiteRemiseNotes) VALUES (seqSessionCours.nextval, 'Automne2015', '2015-09-08 00:00:00', '2015-12-21 00:00:00', '2015-11-11 00:00:00')
+*
 ERROR at line 1:
-ORA-00984: un nom de colonne n'est pas autorise ici 
+ORA-00001: violation de contrainte unique (JF391141.UN_SESSIONCOURS_NOMSESSION) 
 
 
 SQL> 
-SQL> INSERT INTO Cours(idCours, sigleCours, titre, description, idDepartement) VALUES (seqCours.nextval,'INF3105', 'Structures de données et algorithmes', 'Graphes, arbres, tables..',seqDepartement.currval);
-INSERT INTO Cours(idCours, sigleCours, titre, description, idDepartement) VALUES (seqCours.nextval,'INF3105', 'Structures de données et algorithmes', 'Graphes, arbres, tables..',seqDepartement.currval)
-                                              *
+SQL> INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF3105', 'Structures de données et algorithmes', 'Graphes, arbres, tables..',seqDepartement.currval);
+INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF3105', 'Structures de données et algorithmes', 'Graphes, arbres, tables..',seqDepartement.currval)
+                                       *
 ERROR at line 1:
-ORA-00904: "DESCRIPTION" : identificateur non valide 
+ORA-00904: "TITRE" : identificateur non valide 
 
 
-SQL> INSERT INTO Cours(idCours, sigleCours, titre, description, idDepartement) VALUES (seqCours.nextval,'INF4170', 'Architecture des ordinateurs', 'Mémoires: architecture,fonctionnement,types..',seqDepartement.currval);
-INSERT INTO Cours(idCours, sigleCours, titre, description, idDepartement) VALUES (seqCours.nextval,'INF4170', 'Architecture des ordinateurs', 'Mémoires: architecture,fonctionnement,types..',seqDepartement.currval)
-                                              *
+SQL> INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF4170', 'Architecture des ordinateurs', 'Mémoires: architecture,fonctionnement,types..',seqDepartement.currval);
+INSERT INTO Cours(idCours, sigleCours, titre, descriptionCours, idDepartement) VALUES (seqCours.nextval,'INF4170', 'Architecture des ordinateurs', 'Mémoires: architecture,fonctionnement,types..',seqDepartement.currval)
+                                       *
 ERROR at line 1:
-ORA-00904: "DESCRIPTION" : identificateur non valide 
+ORA-00904: "TITRE" : identificateur non valide 
 
 
 SQL> 
@@ -94,11 +173,11 @@ ORA-08002: sequence SEQCOURS.CURRVAL pas encore definie dans cette session
 
 
 SQL> 
-SQL> INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUE (seqProgramme.nextval, '7316' , 'Génie Logiciel', 1, seqDepartement.currval);
-INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUE (seqProgramme.nextval, '7316' , 'Génie Logiciel', 1, seqDepartement.currval)
+SQL> INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUES (seqProgramme.nextval, '7316' , 'Génie Logiciel', 1, seqDepartement.currval);
+INSERT INTO Programme (idProgramme, codeNumerique, titreProgramme, typeProgramme, cycleProgramme, idDepartement) VALUES (seqProgramme.nextval, '7316' , 'Génie Logiciel', 1, seqDepartement.currval)
                                                                                                                  *
 ERROR at line 1:
-ORA-00926: mot-cle VALUES absent 
+ORA-00947: nombre de valeurs insuffisant 
 
 
 SQL> 
@@ -116,5 +195,7 @@ SQL> COMMIT;
 
 Commit complete.
 
+SQL> 
+SQL> 
 SQL> 
 SQL> set echo off
